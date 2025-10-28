@@ -8,36 +8,43 @@ if(!is_page(1807)){
 
 <div class="bg-accent" style="height:20px"></div>
 
+<footer>
 <?php
 
-echo '<footer>';
-echo '<section class="text-white bg-accent-secondary-gradient" style="padding-top:50px;padding-bottom:25px;">';
+echo '<section class="position-relative" style="padding-top:50px;padding-bottom:25px;">';
+
+echo wp_get_attachment_image(48, 'full', false, array( 'alt' => get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' ), 'class'=>'position-absolute w-100 h-100', 'style' => 'width:100%;height:auto;opacity:1;object-fit:cover;top:0;left:0;' ));
 echo '<div class="container">';
 echo '<div class="row justify-content-center">';
 
-echo '<div class="col-12 text-center" style="">';
+// echo '<div class="col-12 text-center" style="">';
 
-wp_nav_menu(array(
-    'menu' => 'footer',
-    'menu_class'=>'menu list-unstyled mb-0 d-flex justify-content-center align-items-center flex-wrap',
-));
+// wp_nav_menu(array(
+//     'menu' => 'footer',
+//     'menu_class'=>'menu list-unstyled mb-0 d-flex justify-content-center align-items-center flex-wrap',
+// ));
 
-echo '</div>';
+// echo '</div>';
 
 ?>
-<div class="col-lg-6 text-center" style="padding:20px 0;">
+<div class="col-lg-4 text-center" style="padding:20px 0;">
 <a href="<?php echo home_url() ?>" title="Homepage link for <?php echo get_bloginfo('name') ?> - <?php echo get_bloginfo('description') ?>">
 <div style="max-width:405px;fill:white;margin:auto;" id="logoMain">
 <div style="pointer-events:none;">
-<?php echo logoSVG(); ?>
+<?php 
+echo wp_get_attachment_image(logoImg()['id'], 'full', false, array( 'alt' => get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' ), 'style' => 'width:100%;height:auto;' ));
+?>
 </div>
 </div>
 </a>
-</div>
-<div class="col-12"></div>
-<div class="col-lg-3 col-md-6">
-    <a class="d-flex align-items-center justify-content-lg-start justify-content-center phone text-white" role="button" href="tel:+1<?php echo globalPhone(); ?>" style="font-size:25px;" target="" id="">
-<svg fill="white" style="height:25px;width:25px;margin-right:10px;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 417">
+
+<?php echo get_template_part('partials/si'); ?>
+
+
+
+<div class="text-center">
+  <a class="d-flex align-items-center justify-content-center phone" role="button" href="tel:+1<?php echo globalPhone(); ?>" style="font-size:25px;" target="" id="">
+<svg style="height:25px;width:25px;margin-right:10px;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 417">
   <g id="Layer_1-2" data-name="Layer 1">
     <g>
       <path d="M101.7,62.6c13.02,12.64,29.74,28.29,41.38,41.77,24.86,28.78-11.76,49.9-29.55,69.1-5.93,6.4-3.31,8.95-.04,15.92,7.69,16.42,21.12,33.72,33.07,47.33,23.96,27.3,53.38,52.7,86.91,67.44,2.11.28,3.7-1.06,5.25-2.27,20.84-16.42,40.24-57.45,70.92-30.98,18.3,15.8,35.33,36.68,52.83,53.54,17.17,24.99-11.04,44.01-26.89,59.82-10.66,10.63-15.36,16.85-30.92,21.02-6.28,1.68-17.13,2.63-23.79,1.76-.92-.12-.64-.93-1.06-1.03-2.05-.48-5.22-.23-7.33-.57-56.76-9.31-120.64-51.61-161.56-91.14-44.54-43.03-91.29-109.94-102.38-171.79-1.39-7.73-2.63-19.39-1.6-27.43.11-.87.89-.7.99-1.11,2.62-10.37,3.49-15.97,10.56-24.68,10.84-13.35,27.21-26.31,39.56-38.46,18.57-11.35,30.75-.74,43.64,11.77Z"/>
@@ -46,46 +53,78 @@ echo '</div>';
     </g>
   </g>
 </svg> <?php echo globalPhone(); ?></a>
-<!-- <div class="divider w-100"></div>
-<p style="font-size:26px;text-align:center;">1234 Main Street<br>  
-Sandy, UT 84070</p> -->
+  <p><strong>Hours of Operation</strong></p>
+  <p>Monday - Friday: 8am - 5pm</p>
+</div>
+  
+<div class="row">
+  <div class="col-6">
+    <?php echo wp_get_attachment_image(49, 'full', false, array(
+    'class' => 'w-100',
+    'style' => 'height:150px;object-fit:cover;',
+    )); ?>
+  </div>
+  <div class="col-6">
+    <?php echo wp_get_attachment_image(50, 'full', false, array(
+    'class' => 'w-100',
+    'style' => 'height:150px;object-fit:cover;object-position:bottom;',
+    )); ?>
+  </div>
+  <div class="col-12">
+    <p style="margin-top:0px;"><?php echo companyAbout() ?></p>
+  </div>
 </div>
 
-
-<div class="col-lg-3 col-md-6">
-<p style="margin-top:0px;"><?php echo companyAbout() ?></p>
 </div>
-<div class="col-lg-3 col-md-6">
-<!-- <div class="divider w-100"></div> -->
-<p style="margin:0px;font-size:16px;text-align:center;">Sandy, UT 84070</p>
+
+<div class="col-1 text-center" style="">
+  <div style="width:2px;margin: auto;" class="h-100 bg-accent"></div>
 </div>
-<style>
-  .quote {
-    display: block;
-    font-size: 1.4rem;
-    font-style: italic;
-    font-weight: 300;
-    text-align: center;
-    line-height: 1.4;
-    letter-spacing: 1px;
-    quotes: "“" "”";
-  }
 
-  .quote::before {
-    content: open-quote;
-  }
+<div class="col-lg-7">
+  <h2 style="margin-bottom:0px;font-size:24px;">Vehicle Inspection Services</h2>
+  <?php 
+  wp_nav_menu(array(
+    'menu' => 'Vehicle Inspection Services',
+    'menu_class'=>'menu list-unstyled mb-0 d-flex justify-content-start align-items-center flex-wrap',
+));
+  ?>
+  <h2 style="margin-bottom:0px;font-size:24px;">Vehicle Appraisal Services</h2>
+  <?php 
+  wp_nav_menu(array(
+    'menu' => 'Vehicle Appraisal Services',
+    'menu_class'=>'menu list-unstyled mb-0 d-flex justify-content-start align-items-center flex-wrap',
+));
+  ?>
+  <h2 style="margin-bottom:0px;font-size:24px;">Resources</h2>
+  <?php 
+  wp_nav_menu(array(
+    'menu' => 'Resources',
+    'menu_class'=>'menu list-unstyled mb-0 d-flex justify-content-start align-items-center flex-wrap',
+));
+  ?>
+  <h2 style="margin-bottom:0px;font-size:24px;">Vehicle Types We Inspect</h2>
+  <?php 
+  wp_nav_menu(array(
+    'menu' => 'Vehicle Types',
+    'menu_class'=>'menu list-unstyled mb-0 d-flex justify-content-start align-items-center flex-wrap',
+));
+  ?>
+  <h2 style="margin-bottom:0px;font-size:24px;">Areas of Service</h2>
+  <p style="margin-top:0px;"><?php echo secondaryDescription() ?></p>
 
-  .quote::after {
-    content: close-quote;
-  }
-</style>
+</div>
 
+<div class="col-md-12 col-12 text-center" style="padding-top:100px;">
+  <p style="margin-bottom:0px;" class="lead">Copyright &copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. All Rights Reserved.</p>
+
+</div>
 <div class="col-12">
     <hr style="margin:20px auto !important;border-color:#f7f7f7;">
 </div>
 
 
-<div class="col-12 text-center" style="color:gray;">
+<div class="col-md-12 col-11 text-center" style="color:gray;">
     <small class=""><a href="https://latinowebstudio.com/" target="_blank" rel="noopener noreferrer" title="Web Design, Development & SEO done by Latino Web Studio in Denver, CO" style="color:gray;" class="">Web Design &amp; Search Engine Optimization</a> done by Latino Web Studio.</small>
 </div>
 
@@ -125,7 +164,7 @@ wp_nav_menu(array(
     'menu_class'=>'menu list-unstyled mb-0'
 ));
 ?>
-<?php echo do_shortcode('[button class="white" href="#new-patient-special"]New Patient Special[/button]') ?>
+
 		<a class="d-flex align-items-center phone text-white" role="button" href="tel:+1<?php echo globalPhone(); ?>" style="" target="" id="">
 <svg fill="white" style="height:15px;width:15px;margin-right:10px;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 417">
   <g id="Layer_1-2" data-name="Layer 1">

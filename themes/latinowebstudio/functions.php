@@ -38,7 +38,7 @@ wp_enqueue_style('blog', get_theme_file_uri('/css/sections/blog.css'));
 wp_enqueue_style('gutenberg-custom', get_theme_file_uri('/css/sections/gutenberg.css'));
 
 // wp_enqueue_style('sidebar', get_theme_file_uri('/css/sections/sidebar.css'));
-// wp_enqueue_style('social-icons', get_theme_file_uri('/css/sections/social-icons.css'));
+wp_enqueue_style('social-icons', get_theme_file_uri('/css/sections/social-icons.css'));
 
 }
 add_action('wp_enqueue_scripts', 'get_radiant_results_stylesheets');
@@ -481,7 +481,31 @@ CSF::createSection( $prefix, array(
 		'default' => 'info@domain.com'
 	  ),
 	  
-	  
+	  // repeater field
+        array(
+        'id'     => 'opt-repeater-1',
+        'type'   => 'repeater',
+        'title'  => 'Repeater',
+        'sanitize' => false,
+        'fields' => array(
+
+            array(
+            'id'    => 'opt-link-1',
+            'type'  => 'link',
+            'title' => 'Link',
+            ),
+            // Code Editor
+        array(
+            'id'    => 'svg-social-logos',
+            'type'  => 'code_editor',
+            'title' => 'SVG Social Logos',
+            'sanitize' => false,
+        ),
+            
+        
+        ),
+        ),
+        // end of repeater field
 
 	)
 ) );
@@ -489,18 +513,6 @@ CSF::createSection( $prefix, array(
 CSF::createSection( $prefix, array(
 	'title'  => 'Header, Body & Footer Code',
 	'fields' => array(
-
-	//   array(
-	// 	'id'       => 'code-header-one',
-	// 	'type'     => 'code_editor',
-	// 	'title'    => 'HTML Editor',
-	// 	'sanitize' => false,
-	// 	'settings' => array(
-	// 	  'theme'  => 'mdn-like',
-	// 	  'mode'   => 'htmlmixed',
-	// 	),
-	// 	'default'  => '<h1>Hello world</h1>',
-	//   ),
 	  array(
 		'id'       => 'code-header',
 		'type'     => 'code_editor',
@@ -583,6 +595,11 @@ function secondaryDescription() {
     global $options;
     global_function(); // call the global function to set $options
     return $options['secondary-description'];
+}
+function socialIconsRepeater() {
+    global $options;
+    global_function(); // call the global function to set $options
+    return $options['opt-repeater-1'];
 }
 
 function chevronRight() {

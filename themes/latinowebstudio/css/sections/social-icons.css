@@ -1,7 +1,20 @@
 .si svg {
+    height:40px;
+    width: 40px;
+    fill: white;
+}
+
+.secondary-nav .si svg {
     height:15px;
     width: auto;
+    fill: black;
+    transform: translate(0px, 2px);
 }
+
+.secondary-nav .si a {
+    padding-top: 0 !important;
+}
+
 .svg-icon {
     border: 1px solid black;
     height:40px;
@@ -15,10 +28,15 @@
 .svg-icon,.svg-icon path {
     transition:all .25s ease-in-out;
 }
-a:hover .svg-icon {
-    background:var(--accent-primary);
-    border-color:var(--accent-primary);
+.si a svg,
+.si a svg path {
+    transition: all .25s ease-in-out;
 }
-a:hover .svg-icon path {
+.si a:hover svg,
+.si a:hover svg path {
+    fill: var(--accent-secondary-hover);
+	fill:black;
+}
+/* a:hover .svg-icon path {
     fill: white;
-}
+} */

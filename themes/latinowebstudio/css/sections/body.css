@@ -1,11 +1,11 @@
 :root {
-  --accent-primary-lighter: #EC092B;
-  --accent-primary: #90051a;
-  --accent-primary-rgb: 144, 5, 26;
+  --accent-primary-lighter: #da2f35;
+  --accent-primary: #a31d21;
+  --accent-primary-rgb: 163, 29, 33;
   --accent-primary-darker: #0E7AC6;
-  --accent-primary-hover: #620412;
-  --accent-secondary: #231f20;
-  --accent-secondary-hover: #CA8E02;
+  --accent-primary-hover: #8B181C;
+  --accent-secondary: #272727;
+  --accent-secondary-hover: #141414;
   --light: gainsboro;
   --light-secondary: #e8edec;
   --text-shadow: 1px 1px 3px black;
