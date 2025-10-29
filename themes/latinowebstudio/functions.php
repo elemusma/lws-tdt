@@ -1,6 +1,6 @@
 <?php
 
-function get_radiant_results_stylesheets() {
+function tdt_stylesheets() {
 wp_enqueue_style('style', get_stylesheet_uri() );
 
 wp_enqueue_style('layout', get_theme_file_uri('/css/sections/layout.css'));
@@ -18,11 +18,11 @@ wp_enqueue_style('fonts', get_theme_file_uri('/css/elements/fonts.css'));
 // wp_enqueue_style('blair-itc', get_theme_file_uri('/blair-itc/blair-itc.css'));
 // wp_enqueue_style('aspira', get_theme_file_uri('/aspira-font/aspira-font.css'));
 wp_enqueue_style('font-poppins', get_theme_file_uri('/font-poppins/font-poppins.css'));
-// wp_enqueue_style('coromant-garamond', '//use.typekit.net/fqe2slt.css');
+wp_enqueue_style('dreamboat', '//use.typekit.net/mvs2gam.css');
 
-// if(is_front_page()){
-// wp_enqueue_style('home', get_theme_file_uri('/css/sections/home.css'));
-// }
+if(is_front_page()){
+wp_enqueue_style('home', get_theme_file_uri('/css/sections/home.css'));
+}
 if(is_page_template('templates/about.php')){
 wp_enqueue_style('about-custom', get_theme_file_uri('/css/sections/about.css'));
 wp_enqueue_style('intro', get_theme_file_uri('/css/sections/intro.css'));
@@ -41,12 +41,12 @@ wp_enqueue_style('gutenberg-custom', get_theme_file_uri('/css/sections/gutenberg
 wp_enqueue_style('social-icons', get_theme_file_uri('/css/sections/social-icons.css'));
 
 }
-add_action('wp_enqueue_scripts', 'get_radiant_results_stylesheets');
+add_action('wp_enqueue_scripts', 'tdt_stylesheets');
 
 
 
 // for footer
-function get_radiant_results_stylesheets_footer() {
+function tdt_stylesheets_footer() {
 	
 wp_enqueue_style('footer', get_theme_file_uri('/css/sections/footer.css'));
 wp_enqueue_style('nav-mobile', get_theme_file_uri('/css/sections/nav-mobile.css'));
@@ -93,7 +93,7 @@ if(is_single()){
 	}
 }
 
-add_action('get_footer', 'get_radiant_results_stylesheets_footer');
+add_action('get_footer', 'tdt_stylesheets_footer');
 
 // loads enqueued javascript files deferred
 function mind_defer_scripts( $tag, $handle, $src ) {
@@ -117,7 +117,7 @@ if ( in_array( $handle, $defer ) ) {
 } 
 add_filter( 'script_loader_tag', 'mind_defer_scripts', 10, 3 );
 
-function get_radiant_results_menus() {
+function tdt_menus() {
 register_nav_menus( array(
 'primary' => __( 'Primary' )));
 register_nav_menus( array(
@@ -127,7 +127,7 @@ add_theme_support('title-tag');
 add_theme_support('post-thumbnails');
 }
 
-add_action('after_setup_theme', 'get_radiant_results_menus');
+add_action('after_setup_theme', 'tdt_menus');
 
 if( function_exists('acf_add_options_page') ) {
 
@@ -350,17 +350,18 @@ function txt_type_shortcode( $atts ) {
 }
 add_shortcode( 'txt_type', 'txt_type_shortcode' );
 
-function get_radiant_results_contact_shortcode() {
+function tdt_contact_shortcode() {
+    // Example: globalPhone() returns '+1720.593.1640' or a formatted HTML snippet
+    $phone = globalPhone(); // get phone number dynamically
+
     return do_shortcode('
-        [button href="#expert-witness" class="small btn-contact" style="margin-left:0px;"]Contact Mark[/button]
-        [button href="/wp-content/uploads/2025/01/Mark_McFarland-CV-notRetained.pdf" target="_blank" class="white small cv-download" style="margin-left:0px;"]CV Download[/button]
-        <div style="margin:15px 0px;">
-            <span>Call Me: </span>
-            <a href="tel:+1720.593.1640" class="text-link d-inline-block phone" style="">720.593.1640</a>
-        </div>
+    <div class="">
+        [button href="#inspection" class="small btn-contact" style="margin-left:0px;"]Get Free Inspection[/button]
+        <a href="tel:' . $phone . '" class="text-link d-inline-block phone" style="">' . $phone . '</a>
+    </div>
     ');
 }
-add_shortcode('get_radiant_results_contact', 'get_radiant_results_contact_shortcode');
+add_shortcode('tdt_contact', 'tdt_contact_shortcode');
 
 
 // function custom_modify_block_output($block_content, $block) {

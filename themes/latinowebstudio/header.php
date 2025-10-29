@@ -40,7 +40,7 @@
             </a>
           </div>
 <div class="col-1 mobile-hidden"></div>
-        <div class="col-6 text-center mobile-hidden">
+        <div class="col-7 text-center mobile-hidden">
 			  <div class="d-flex justify-content-end h-100">
             <?php
               wp_nav_menu(array(
@@ -65,7 +65,7 @@
 
             </div>
 			</div>
-      <div class="col-5" style="padding-left:0px;">
+      <div class="col-lg-2 col-5" style="padding-left:0px;">
             <?php echo do_shortcode('[button class="small" style="margin:0;" target="_blank" href="/inspection"]Get Inspection[/button]') ?>
             <div style="margin-left:15px;">
       
