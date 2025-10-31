@@ -14,7 +14,7 @@
   "attributes": {
     "section_style": {
       "type": "string",
-      "default": "padding:50px 0;"
+      "default": "padding:150px 0;"
     },
     "section_class": {
       "type": "string",
@@ -29,10 +29,16 @@
       "default": null
     },
     "section_image_class": {
-      "type": "string"
+      "type": "string",
+      "default": "w-100 h-100 position-absolute bg-img"
     },
     "section_image_style": {
-      "type": "string"
+      "type": "string",
+      "default": "top:0;left:0;object-fit:cover;pointer-events:none;"
+    },
+    "section_image_alt": {
+      "type": "string",
+      "default": null
     },
     "section_block": {
       "type": "string",
@@ -68,7 +74,7 @@
     },
     "col_class": {
       "type": "string",
-      "default": "col-12"
+      "default": "col-lg-6"
     },
     "col_id": {
       "type": "string",
@@ -84,7 +90,7 @@
     },
     "col_image_class": {
       "type": "string",
-      "default": "row"
+      "default": "col-lg-6"
     },
     "col_image_id": {
       "type": "string",
@@ -92,7 +98,7 @@
     },
     "image_style": {
       "type": "string",
-      "default": "width:100%;height:250px;object-fit:cover;"
+      "default": ""
     },
     "image_class": {
       "type": "string",
@@ -102,17 +108,13 @@
       "type": "string",
       "default": ""
     },
-    "gallery_columns": {
-      "type": "string",
-      "default": "gallery col-lg-3 col-md-6 col-12"
-    },
-    "gallery_columns_style": {
-      "type": "string",
-      "default": "padding-top:15px;padding-bottom:15px;"
-    },
     "gallery_images": {
       "type": "array",
       "default": []
+    },
+    "gallery_columns": {
+      "type": "string",
+      "default": "3"
     },
     "gallery_images_lightbox": {
       "type": "string",

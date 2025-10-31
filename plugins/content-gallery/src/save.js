@@ -29,9 +29,9 @@ export default function save( { attributes } ) {
 				{ attributes.section_image && (
 					<img
 						src={ attributes.section_image }
-						alt=""
-						className={ `w-100 h-100 position-absolute bg-img ${ attributes.section_image_class }` }
-						style={ `top:0;left:0;object-fit:cover;pointer-events:none;${ attributes.section_image_style }` }
+						alt={ attributes.section_image_alt }
+						className={ `${ attributes.section_image_class }` }
+						style={ `${ attributes.section_image_style }` }
 					/>
 				) }
 
@@ -55,9 +55,7 @@ export default function save( { attributes } ) {
 						>
 							<InnerBlocks.Content />
 						</div>
-						
-					</div>
-					<div
+						<div
 							className={ attributes.col_image_class }
 							style={ attributes.col_image_style }
 							id={ attributes.col_image_id }
@@ -72,7 +70,7 @@ export default function save( { attributes } ) {
 							{ attributes.gallery_images &&
 								attributes.gallery_images.map( ( image ) => (
 							<div
-							className={ `${ attributes.gallery_columns }` } style={attributes.gallery_columns_style}>
+							className={ `${ attributes.gallery_columns }` }>
 								<a href={ image.url } data-lightbox={attributes.gallery_images_lightbox}>
 									<img
 										key={ image.id }
@@ -82,10 +80,26 @@ export default function save( { attributes } ) {
 										className={attributes.image_class}
 									/>
 									</a>
+									<div className="text-center">
+									  {/* Image Title */}
+  {image.title && (
+    <div className="image-title" style={{ fontWeight: 'bold', marginTop: '8px' }}>
+      <h3 style={{marginBottom:0}}>{image.title}</h3>
+    </div>
+  )}
+
+  {/* Image Caption */}
+  {image.caption && (
+    <div className="image-caption" style={{ fontStyle: 'italic', fontSize: '0.9em' }}>
+      <h4 className="dreamboat" style={{marginTop:"-1rem"}}><RawHTML>{image.caption}</RawHTML></h4>
+    </div>
+  )}
+  </div>
 									</div>
 								) ) }
 						
-						</div> {/* end of col image */}
+						</div>
+					</div>
 				</div>
 			</section>
 		</div>

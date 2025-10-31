@@ -49,6 +49,7 @@ add_action('wp_enqueue_scripts', 'tdt_stylesheets');
 function tdt_stylesheets_footer() {
 	
 wp_enqueue_style('footer', get_theme_file_uri('/css/sections/footer.css'));
+wp_enqueue_style('how-it-works', get_theme_file_uri('/css/sections/how-it-works.css'));
 wp_enqueue_style('nav-mobile', get_theme_file_uri('/css/sections/nav-mobile.css'));
 wp_enqueue_style('services', get_theme_file_uri('/css/sections/services.css'));
 wp_enqueue_style('photo-gallery', get_theme_file_uri('/css/sections/photo-gallery.css'));

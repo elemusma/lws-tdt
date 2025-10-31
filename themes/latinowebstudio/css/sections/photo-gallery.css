@@ -1,7 +1,48 @@
+.owl-carousel .owl-item {
+    transition: transform 0.5s ease;
+}
+
+.owl-nav button img {
+    width: 100px;
+}
+
+/* .owl-item.is-next img {
+    object-position: left;
+}
+
+.owl-item.cloned.is-prev img {
+    object-position: right;
+} */
+
+.gallery-columns.class:after {
+    content: "";
+    background: var(--accent-primary);
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
 .owl-nav span {
     font-size: 3rem;
     line-height: 1;
 }
+.gallery-columns img {
+  object-position: center;
+}
+/* .active img {
+  object-position:center;
+}
+.is-prev img {
+    object-position: right;
+}
+.is-next img {
+    object-position: left;
+} */
 
 
 .owl-theme .owl-nav [class*="owl-"]:hover {

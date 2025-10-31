@@ -4,6 +4,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -50,6 +51,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		section_image,
 		section_image_class,
 		section_image_style,
+		section_image_alt,
 		section_block,
 		container_style,
 		container_class,
@@ -69,16 +71,45 @@ export default function Edit( { attributes, setAttributes } ) {
 		image_id,
 		gallery_images,
 		gallery_columns,
-		gallery_columns_style,
 		gallery_images_lightbox
 	} = attributes;
 
 	const [ value, setValue ] = useState( '' );
 
-	const onSelectImages = ( newImages ) => {
-		setAttributes( { gallery_images: newImages } );
-		// setAttributes({gallery_images: [...gallery_images, ...newImages]})
-	};
+
+
+const onSelectImages = async (newImages) => {
+	const updatedImages = await Promise.all(
+		newImages.map(async (image) => {
+			try {
+				const fullImage = await apiFetch({ path: `/wp/v2/media/${image.id}` });
+
+				return {
+					id: fullImage.id,
+					url: fullImage.source_url,
+					alt: fullImage.alt_text || '',
+					title: fullImage.title?.rendered || '',
+					caption: fullImage.caption?.rendered || '',
+				};
+			} catch (error) {
+				console.error(`Failed to fetch media for ID ${image.id}:`, error);
+				// Fallback to basic image if fetch fails
+				return {
+					id: image.id,
+					url: image.url,
+					alt: image.alt || '',
+					title: '',
+					caption: '',
+				};
+			}
+		})
+	);
+
+	setAttributes({ gallery_images: updatedImages });
+};
+
+
+
 	console.log( gallery_images );
 
 	return (
@@ -112,38 +143,38 @@ export default function Edit( { attributes, setAttributes } ) {
 					initialOpen={ false }
 				>
 					<MediaUploadCheck>
-						<MediaUpload
-							onSelect={ ( media ) =>
-								setAttributes( { section_image: media.url } )
-							}
-							type="image"
-							allowedTypes={ [ 'image' ] }
-							value={ section_image }
-							render={ ( { open } ) => (
-								<div>
-									{ section_image && (
-										<Button
-											isLink
-											isDestructive
-											onClick={ () =>
-												setAttributes( {
-													section_image: '',
-												} )
-											}
-										>
-											{ __( 'Remove Section Image' ) }
-										</Button>
-									) }
-									<Button
-										onClick={ open }
-										icon="upload"
-										className="editor-media-placeholder__button is-button is-default is-large"
-									>
-										{ __( 'Select Section Image' ) }
-									</Button>
-								</div>
-							) }
-						/>
+					  <MediaUpload
+						onSelect={(media) => setAttributes({ section_image: media.url, section_image_alt: media.alt })}
+						type="image"
+						allowedTypes={['image']}
+						value={section_image}
+						render={({ open }) => (
+						  <div>
+							{section_image && (
+							  <>
+								<Button
+								  isLink
+								  isDestructive
+								  onClick={() => setAttributes({ section_image: '', section_image_alt: '' })}
+								>
+								  {__('Remove Section Image')}
+								</Button>
+								<img src={section_image} alt={section_image_alt || 'Image'} />
+								{section_image_alt && (
+								  <p>{__('Alt Text:')} {section_image_alt}</p>
+								)}
+							  </>
+							)}
+							<Button
+							  onClick={open}
+							  icon="upload"
+							  className="editor-media-placeholder__button is-button is-default is-large"
+							>
+							  {__('Select Section Image')}
+							</Button>
+						  </div>
+						)}
+					  />
 					</MediaUploadCheck>
 
 					<InputControl
@@ -286,23 +317,16 @@ export default function Edit( { attributes, setAttributes } ) {
 							) }
 						/>
 					</MediaUploadCheck>
-					{/* <Gallery
+					<Gallery
 						gallery_images={ gallery_images }
 						gallery_columns={ gallery_columns }
 						setAttributes={setAttributes}
-					/> */}
+					/>
 <InputControl
 						label="Gallery Columns Class"
 						value={ gallery_columns }
 						onChange={ ( nextValue ) =>
 							setAttributes( { gallery_columns: nextValue } )
-						}
-					/>
-<InputControl
-						label="Gallery Columns Style"
-						value={ gallery_columns_style }
-						onChange={ ( nextValue ) =>
-							setAttributes( { gallery_columns_style: nextValue } )
 						}
 					/>
 					<InputControl
@@ -338,29 +362,49 @@ export default function Edit( { attributes, setAttributes } ) {
 			<section { ...useBlockProps() }>
 				<img src={ section_image } alt="" />
 				{ console.log( section_image ) }
-				<div style={ { } }>
+				<div style={ { display: 'flex' } }>
 					<div
 						style={ {
 							flex: '1',
 							marginRight: '20px',
-							width: '100%',
+							width: '50%',
 						} }
 					>
 						<InnerBlocks />
 					</div>
-					<div style={ { flex: '1', width: '100%' } }>
+					<div style={ { flex: '1', width: '50%' } }>
 						<div
-							className={ `gallery columns-${ gallery_columns }` }
+							className={ `${ gallery_columns }` }
 						>
 							{ /* Your gallery rendering logic */ }
 							{ gallery_images &&
-								gallery_images.map( ( image ) => (
-									<img
-										key={ image.id }
-										src={ image.url }
-										alt={ image.alt }
-									/>
-								) ) }
+	gallery_images.map((image) => {
+  console.log('image:', image);
+  return (
+    <div key={ image.id } style={{ marginBottom: '20px' }}>
+      <img
+        src={ image.url }
+        alt={ image.alt }
+        style={{ width: '100%', height: 'auto' }}
+      />
+      {image.title && (
+        <div
+          style={{ fontWeight: 'bold', marginTop: '5px' }}
+          dangerouslySetInnerHTML={{ __html: image.title }}
+        />
+      )}
+      {image.caption && (
+        <div
+          style={{ fontStyle: 'italic', fontSize: '0.9em' }}
+          dangerouslySetInnerHTML={{ __html: image.caption }}
+        />
+      )}
+    </div>
+  );
+})
+
+}
+
 						</div>
 					</div>
 				</div>
