@@ -80,6 +80,7 @@ export default function save( { attributes } ) {
 										className={attributes.image_class}
 									/>
 									</a>
+{attributes.gallery_captions_yes_no === 'yes' && (
 									<div className="text-center">
 									  {/* Image Title */}
   {image.title && (
@@ -95,6 +96,7 @@ export default function save( { attributes } ) {
     </div>
   )}
   </div>
+)}
 									</div>
 								) ) }
 						

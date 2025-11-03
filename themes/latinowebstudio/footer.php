@@ -17,15 +17,6 @@ echo wp_get_attachment_image(48, 'full', false, array( 'alt' => get_bloginfo( 'n
 echo '<div class="container">';
 echo '<div class="row justify-content-center">';
 
-// echo '<div class="col-12 text-center" style="">';
-
-// wp_nav_menu(array(
-//     'menu' => 'footer',
-//     'menu_class'=>'menu list-unstyled mb-0 d-flex justify-content-center align-items-center flex-wrap',
-// ));
-
-// echo '</div>';
-
 ?>
 <div class="col-lg-4 text-center" style="padding:20px 0;">
 <a href="<?php echo home_url() ?>" title="Homepage link for <?php echo get_bloginfo('name') ?> - <?php echo get_bloginfo('description') ?>">
@@ -139,7 +130,7 @@ echo wp_get_attachment_image(logoImg()['id'], 'full', false, array( 'alt' => get
 <div id="mobileMenu" class="modal-custom mobile-menu" style="opacity:0;pointer-events:none;">
 
 <!-- Modal content -->
-<div class="modal-content-menu modal-content-custom bg-accent-secondary" style="padding: 50px 15px;
+<div class="modal-content-menu modal-content-custom bg-white" style="padding: 50px 15px;
     margin-top: 0;
     margin-left: 0;
     margin-bottom: 0;
@@ -147,16 +138,27 @@ echo wp_get_attachment_image(logoImg()['id'], 'full', false, array( 'alt' => get
     border-bottom: 0;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
-    height: 100vh;
-	background: var(--accent-secondary);">
+    height: 100vh;">
 <span class="close-custom" id="navMenuClose">&times;</span>
 	<?php
 
 echo '<div style="width:100%;max-width:165px;" id="logoMain">';
-echo '<a href="' . home_url() . '" title="Homepage link for Mark McFarland, P.E. - Expert Witness & Forensic Engineering">';
+?>
 
-echo logoSVG();
-echo '</a>';
+<a href="<?php echo home_url(); ?>" title="<?php echo get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' ); ?>">
+  <div id="logoMain" style="min-width:100px;width:100%;transition:all .25s ease-in-out;">
+    <div style="pointer-events:none;">
+      <?php 
+      // echo logoSVG(); 
+      echo wp_get_attachment_image(logoImg()['id'], 'full', false, array( 'alt' => get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' ), 'style' => 'width:100%;height:auto;' ));
+      // echo logoImg()['id'];
+      // echo print_r(logoImg());
+      ?>
+    </div>
+  </div>
+</a>
+
+<?php
 echo '</div>';
 
 wp_nav_menu(array(
@@ -164,8 +166,14 @@ wp_nav_menu(array(
     'menu_class'=>'menu list-unstyled mb-0'
 ));
 ?>
+<?php 
+// echo do_shortcode('[button class="small" style="margin:0;" target="_blank" href="/inspection"]Get Free Pre-Inspection Consultation[/button]');
+echo do_shortcode('[tdt_contact]');
 
-		<a class="d-flex align-items-center phone text-white" role="button" href="tel:+1<?php echo globalPhone(); ?>" style="" target="" id="">
+echo get_template_part('partials/si');
+
+?>
+		<!-- <a class="d-flex align-items-center phone text-white" role="button" href="tel:+1<?php echo globalPhone(); ?>" style="" target="" id="">
 <svg fill="white" style="height:15px;width:15px;margin-right:10px;" id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 417">
   <g id="Layer_1-2" data-name="Layer 1">
     <g>
@@ -174,7 +182,7 @@ wp_nav_menu(array(
       <path d="M291.96,131.53c16.95,18.94,28.17,42.08,33.19,67,.1,1.29-.74,1.83-1.89,2.12-7.2,1.77-16.78,2.73-24.24,3.72-1.33.18-2.5,1.43-4.05.44-5.12-28.8-22.35-54.72-46.8-70.67-12.91-8.42-27.54-13.53-42.69-16.24l3.53-28.99c.18-.31.42-.6.75-.76,1.25-.63,13.19,1.9,15.5,2.49,24.62,6.26,49.83,22.04,66.71,40.91Z"/>
     </g>
   </g>
-</svg> <?php echo globalPhone(); ?></a>
+</svg> <?php echo globalPhone(); ?></a> -->
 
 <?php
 echo '</div>';

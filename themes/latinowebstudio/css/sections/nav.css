@@ -132,9 +132,8 @@ ul.menu>li>a {
     cursor:pointer;
 }
 
-/* @media only screen and (min-width:767px) { */
+@media only screen and (min-width:768px) {
     ul.menu>li:after {
-        /* padding:25px 9px; */
         content:"";
         border-right:2px solid var(--accent-primary);
         position: absolute;
@@ -147,7 +146,7 @@ ul.menu>li>a {
         /* padding:25px 9px; */
         content:none;
     }
-/* } */
+}
 
 ul#menu-primary {
     margin: 0;
@@ -314,7 +313,7 @@ ul.sub-menu>li.text-black >a:hover {
         height: unset !important;
     }
 
-    ul.sub-menu li a {
+    /* ul.sub-menu li a {
         color: white;
-    }
+    } */
 }

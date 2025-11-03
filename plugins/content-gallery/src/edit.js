@@ -24,6 +24,7 @@ import {
 	PanelBody,
 	__experimentalInputControl as InputControl,
 	TextControl,
+	SelectControl,
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 
@@ -71,44 +72,66 @@ export default function Edit( { attributes, setAttributes } ) {
 		image_id,
 		gallery_images,
 		gallery_columns,
-		gallery_images_lightbox
+		gallery_images_lightbox,
+		gallery_captions_yes_no
 	} = attributes;
 
 	const [ value, setValue ] = useState( '' );
 
+	// Utility function to set default values
+	const utilityFunction = () => ({
+		col_image_style: 'w-100 h-auto',
+		col_image_class: '',
+		col_image_id: '',
+		gallery_captions_yes_no: 'no',
+	});
 
+	// Apply default values on mount if not already set
+	useEffect(() => {
+		const defaults = utilityFunction();
+		const updates = {};
+		let needsUpdate = false;
 
-const onSelectImages = async (newImages) => {
-	const updatedImages = await Promise.all(
-		newImages.map(async (image) => {
-			try {
-				const fullImage = await apiFetch({ path: `/wp/v2/media/${image.id}` });
+		// Check if col_image_style needs default value
+		if (!col_image_style) {
+			updates.col_image_style = defaults.col_image_style;
+			needsUpdate = true;
+		}
 
-				return {
-					id: fullImage.id,
-					url: fullImage.source_url,
-					alt: fullImage.alt_text || '',
-					title: fullImage.title?.rendered || '',
-					caption: fullImage.caption?.rendered || '',
-				};
-			} catch (error) {
-				console.error(`Failed to fetch media for ID ${image.id}:`, error);
-				// Fallback to basic image if fetch fails
-				return {
-					id: image.id,
-					url: image.url,
-					alt: image.alt || '',
-					title: '',
-					caption: '',
-				};
-			}
-		})
-	);
+		if (needsUpdate) {
+			setAttributes(updates);
+		}
+	}, []);
 
-	setAttributes({ gallery_images: updatedImages });
-};
+	const onSelectImages = async (newImages) => {
+		const updatedImages = await Promise.all(
+			newImages.map(async (image) => {
+				try {
+					const fullImage = await apiFetch({ path: `/wp/v2/media/${image.id}` });
 
+					return {
+						id: fullImage.id,
+						url: fullImage.source_url,
+						alt: fullImage.alt_text || '',
+						title: fullImage.title?.rendered || '',
+						caption: fullImage.caption?.rendered || '',
+					};
+				} catch (error) {
+					console.error(`Failed to fetch media for ID ${image.id}:`, error);
+					// Fallback to basic image if fetch fails
+					return {
+						id: image.id,
+						url: image.url,
+						alt: image.alt || '',
+						title: '',
+						caption: '',
+					};
+				}
+			})
+		);
 
+		setAttributes({ gallery_images: updatedImages });
+	};
 
 	console.log( gallery_images );
 
@@ -193,11 +216,6 @@ const onSelectImages = async (newImages) => {
 					/>
 				</PanelBody>
 				<PanelBody title={ __( 'Code Block' ) } initialOpen={ false }>
-					{ /* <InputControl
-						label="Code Block"
-						value={section_block}
-						onChange={(nextValue) => setAttributes({ section_block: nextValue })}
-					/> */ }
 					<label style={ { lineHeight: '2' } }>Code Block</label>
 					<textarea
 						id="sectionStyleTextarea"
@@ -281,6 +299,17 @@ const onSelectImages = async (newImages) => {
 					/>
 				</PanelBody>
 				<PanelBody title={ __( 'Gallery' ) } initialOpen={ false }>
+					<SelectControl
+						label="Add Captions"
+						value={ gallery_captions_yes_no || 'no' }
+						options={ [
+							{ label: 'Yes', value: 'yes' },
+							{ label: 'No', value: 'no' },
+						] }
+						onChange={ ( nextValue ) =>
+							setAttributes( { gallery_captions_yes_no: nextValue } )
+						}
+					/>
 					<InputControl
 						label="Column Image Class"
 						value={ col_image_class }
@@ -290,7 +319,7 @@ const onSelectImages = async (newImages) => {
 					/>
 					<InputControl
 						label="Column Image Style"
-						value={ col_image_style }
+						value={ col_image_style || 'w-100 h-auto' }
 						onChange={ ( nextValue ) =>
 							setAttributes( { col_image_style: nextValue } )
 						}
@@ -302,7 +331,6 @@ const onSelectImages = async (newImages) => {
 							setAttributes( { col_image_id: nextValue } )
 						}
 					/>
-					{ /* Render the Gallery component here */ }
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={ onSelectImages }
@@ -322,7 +350,7 @@ const onSelectImages = async (newImages) => {
 						gallery_columns={ gallery_columns }
 						setAttributes={setAttributes}
 					/>
-<InputControl
+					<InputControl
 						label="Gallery Columns Class"
 						value={ gallery_columns }
 						onChange={ ( nextValue ) =>
@@ -376,35 +404,36 @@ const onSelectImages = async (newImages) => {
 						<div
 							className={ `${ gallery_columns }` }
 						>
-							{ /* Your gallery rendering logic */ }
 							{ gallery_images &&
-	gallery_images.map((image) => {
-  console.log('image:', image);
-  return (
-    <div key={ image.id } style={{ marginBottom: '20px' }}>
-      <img
-        src={ image.url }
-        alt={ image.alt }
-        style={{ width: '100%', height: 'auto' }}
-      />
-      {image.title && (
-        <div
-          style={{ fontWeight: 'bold', marginTop: '5px' }}
-          dangerouslySetInnerHTML={{ __html: image.title }}
-        />
-      )}
-      {image.caption && (
-        <div
-          style={{ fontStyle: 'italic', fontSize: '0.9em' }}
-          dangerouslySetInnerHTML={{ __html: image.caption }}
-        />
-      )}
-    </div>
-  );
-})
-
-}
-
+								gallery_images.map((image) => {
+									console.log('image:', image);
+									return (
+										<div key={ image.id } style={{ marginBottom: '20px' }}>
+											<img
+												src={ image.url }
+												alt={ image.alt }
+												style={{ width: '100%', height: 'auto' }}
+											/>
+											{gallery_captions_yes_no === 'yes' && (
+												<>
+													{image.title && (
+														<div
+															style={{ fontWeight: 'bold', marginTop: '5px' }}
+															dangerouslySetInnerHTML={{ __html: image.title }}
+														/>
+													)}
+													{image.caption && (
+														<div
+															style={{ fontStyle: 'italic', fontSize: '0.9em' }}
+															dangerouslySetInnerHTML={{ __html: image.caption }}
+														/>
+													)}
+												</>
+											)}
+										</div>
+									);
+								})
+							}
 						</div>
 					</div>
 				</div>
@@ -415,23 +444,18 @@ const onSelectImages = async (newImages) => {
 
 // Define your Gallery component
 const Gallery = ( { gallery_images, gallery_columns, setAttributes } ) => {
-    // Render your gallery based on the images and columns
-    // You can use the images array to loop through and display the selected images
-
-
     const deleteImage = (id) => {
         setAttributes( { gallery_images: gallery_images.filter( ( image ) => image.id !== id ) } );
     }
     return (
         <div className={ `gallery columns-${ gallery_columns }` }>
-            { /* Your gallery rendering logic */ }
             { gallery_images &&
                 gallery_images.map( ( image ) => (
-                    <div>
-                    <button 
-                    onClick={()=>deleteImage(image.id)}
-                    >X</button>
-                    <img key={ image.id } src={ image.url } alt={ image.alt } />
+                    <div key={image.id}>
+                        <button 
+                            onClick={()=>deleteImage(image.id)}
+                        >X</button>
+                        <img src={ image.url } alt={ image.alt } />
                     </div>
                 ) ) }
         </div>

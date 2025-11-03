@@ -91,9 +91,34 @@ function Edit({
     image_id,
     gallery_images,
     gallery_columns,
-    gallery_images_lightbox
+    gallery_images_lightbox,
+    gallery_captions_yes_no
   } = attributes;
   const [value, setValue] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useState)('');
+
+  // Utility function to set default values
+  const utilityFunction = () => ({
+    col_image_style: 'w-100 h-auto',
+    col_image_class: '',
+    col_image_id: '',
+    gallery_captions_yes_no: 'no'
+  });
+
+  // Apply default values on mount if not already set
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_5__.useEffect)(() => {
+    const defaults = utilityFunction();
+    const updates = {};
+    let needsUpdate = false;
+
+    // Check if col_image_style needs default value
+    if (!col_image_style) {
+      updates.col_image_style = defaults.col_image_style;
+      needsUpdate = true;
+    }
+    if (needsUpdate) {
+      setAttributes(updates);
+    }
+  }, []);
   const onSelectImages = async newImages => {
     const updatedImages = await Promise.all(newImages.map(async image => {
       try {
@@ -269,7 +294,20 @@ function Edit({
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Gallery'),
     initialOpen: false
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalInputControl, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
+    label: "Add Captions",
+    value: gallery_captions_yes_no || 'no',
+    options: [{
+      label: 'Yes',
+      value: 'yes'
+    }, {
+      label: 'No',
+      value: 'no'
+    }],
+    onChange: nextValue => setAttributes({
+      gallery_captions_yes_no: nextValue
+    })
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalInputControl, {
     label: "Column Image Class",
     value: col_image_class,
     onChange: nextValue => setAttributes({
@@ -277,7 +315,7 @@ function Edit({
     })
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalInputControl, {
     label: "Column Image Style",
-    value: col_image_style,
+    value: col_image_style || 'w-100 h-auto',
     onChange: nextValue => setAttributes({
       col_image_style: nextValue
     })
@@ -370,7 +408,7 @@ function Edit({
         width: '100%',
         height: 'auto'
       }
-    }), image.title && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    }), gallery_captions_yes_no === 'yes' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, image.title && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       style: {
         fontWeight: 'bold',
         marginTop: '5px'
@@ -386,7 +424,7 @@ function Edit({
       dangerouslySetInnerHTML: {
         __html: image.caption
       }
-    }));
+    })));
   }))))));
 }
 
@@ -396,9 +434,6 @@ const Gallery = ({
   gallery_columns,
   setAttributes
 }) => {
-  // Render your gallery based on the images and columns
-  // You can use the images array to loop through and display the selected images
-
   const deleteImage = id => {
     setAttributes({
       gallery_images: gallery_images.filter(image => image.id !== id)
@@ -406,10 +441,11 @@ const Gallery = ({
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: `gallery columns-${gallery_columns}`
-  }, gallery_images && gallery_images.map(image => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+  }, gallery_images && gallery_images.map(image => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    key: image.id
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     onClick: () => deleteImage(image.id)
   }, "X"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    key: image.id,
     src: image.url,
     alt: image.alt
   }))));
@@ -551,7 +587,7 @@ function save({
     alt: image.alt,
     style: `${attributes.image_style}`,
     className: attributes.image_class
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  })), attributes.gallery_captions_yes_no === 'yes' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "text-center"
   }, image.title && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "image-title",
@@ -694,7 +730,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/content-gallery","version":"0.1.0","title":"Content Gallery","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"attributes":{"section_style":{"type":"string","default":"padding:150px 0;"},"section_class":{"type":"string","default":"position-relative"},"section_id":{"type":"string","default":""},"section_image":{"type":"string","default":null},"section_image_class":{"type":"string","default":"w-100 h-100 position-absolute bg-img"},"section_image_style":{"type":"string","default":"top:0;left:0;object-fit:cover;pointer-events:none;"},"section_image_alt":{"type":"string","default":null},"section_block":{"type":"string","default":""},"container_style":{"type":"string","default":""},"container_class":{"type":"string","default":"container"},"container_id":{"type":"string","default":""},"row_style":{"type":"string","default":""},"row_class":{"type":"string","default":"row justify-content-center"},"row_id":{"type":"string","default":""},"col_style":{"type":"string","default":""},"col_class":{"type":"string","default":"col-lg-6"},"col_id":{"type":"string","default":""},"col_image":{"type":"string","default":""},"col_image_style":{"type":"string","default":""},"col_image_class":{"type":"string","default":"col-lg-6"},"col_image_id":{"type":"string","default":""},"image_style":{"type":"string","default":""},"image_class":{"type":"string","default":""},"image_id":{"type":"string","default":""},"gallery_images":{"type":"array","default":[]},"gallery_columns":{"type":"string","default":"3"},"gallery_images_lightbox":{"type":"string","default":"gallery-lightbox"}},"textdomain":"content-gallery","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/content-gallery","version":"0.1.0","title":"Content Gallery","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"attributes":{"section_style":{"type":"string","default":"padding:50px 0;"},"section_class":{"type":"string","default":"position-relative"},"section_id":{"type":"string","default":""},"section_image":{"type":"string","default":null},"section_image_class":{"type":"string","default":"w-100 h-100 position-absolute bg-img"},"section_image_style":{"type":"string","default":"top:0;left:0;object-fit:cover;pointer-events:none;"},"section_image_alt":{"type":"string","default":null},"section_block":{"type":"string","default":""},"container_style":{"type":"string","default":""},"container_class":{"type":"string","default":"container"},"container_id":{"type":"string","default":""},"row_style":{"type":"string","default":""},"row_class":{"type":"string","default":"row justify-content-center"},"row_id":{"type":"string","default":""},"col_style":{"type":"string","default":""},"col_class":{"type":"string","default":"col-12"},"col_id":{"type":"string","default":""},"col_image":{"type":"string","default":""},"col_image_style":{"type":"string","default":""},"col_image_class":{"type":"string","default":"col-12 row"},"col_image_id":{"type":"string","default":""},"image_style":{"type":"string","default":""},"image_class":{"type":"string","default":""},"image_id":{"type":"string","default":""},"gallery_images":{"type":"array","default":[]},"gallery_columns":{"type":"string","default":"col-lg-4 col-md-6"},"gallery_images_lightbox":{"type":"string","default":"gallery-lightbox"}},"textdomain":"content-gallery","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

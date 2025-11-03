@@ -50,6 +50,7 @@ function tdt_stylesheets_footer() {
 	
 wp_enqueue_style('footer', get_theme_file_uri('/css/sections/footer.css'));
 wp_enqueue_style('how-it-works', get_theme_file_uri('/css/sections/how-it-works.css'));
+wp_enqueue_style('accordion', get_theme_file_uri('/css/sections/accordion.css'));
 wp_enqueue_style('nav-mobile', get_theme_file_uri('/css/sections/nav-mobile.css'));
 wp_enqueue_style('services', get_theme_file_uri('/css/sections/services.css'));
 wp_enqueue_style('photo-gallery', get_theme_file_uri('/css/sections/photo-gallery.css'));
@@ -357,7 +358,7 @@ function tdt_contact_shortcode() {
 
     return do_shortcode('
     <div class="">
-        [button href="#inspection" class="small btn-contact" style="margin-left:0px;"]Get Free Inspection[/button]
+        [button href="#inspection" class="small btn-contact" style="margin-left:0px;"]Pre-Inspection Consultation[/button]
         <a href="tel:' . $phone . '" class="text-link d-inline-block phone" style="">' . $phone . '</a>
     </div>
     ');

@@ -14,7 +14,7 @@
     object-position: right;
 } */
 
-.gallery-columns.class:after {
+.active .gallery-columns.class:after {
     content: "";
     background: var(--accent-primary);
     height: 200px;
@@ -25,6 +25,16 @@
     transform: translate(-50%, -80%);
     border-radius: 50%;
     z-index: -1;
+}
+
+.active .text-center {
+  opacity:1;
+  transition:all .25s ease-in-out;
+}
+.is-prev .text-center,
+.is-next .text-center {
+  opacity:0;
+  transition:all .25s ease-in-out;
 }
 
 .owl-nav span {

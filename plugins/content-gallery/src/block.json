@@ -14,7 +14,7 @@
 	"attributes": {
 		"section_style": {
 			"type": "string",
-			"default": "padding:150px 0;"
+			"default": "padding:50px 0;"
 		},
 		"section_class": {
 			"type": "string",
@@ -74,7 +74,7 @@
 		},
 		"col_class": {
 			"type": "string",
-			"default": "col-lg-6"
+			"default": "col-12"
 		},
 		"col_id": {
 			"type": "string",
@@ -90,7 +90,7 @@
 		},
 		"col_image_class": {
 			"type": "string",
-			"default": "col-lg-6"
+			"default": "col-12 row"
 		},
 		"col_image_id": {
 			"type": "string",
@@ -114,7 +114,7 @@
 		},
 		"gallery_columns": {
 			"type": "string",
-			"default": "3"
+			"default": "col-lg-4 col-md-6"
 		},
 		"gallery_images_lightbox": {
 			"type": "string",
