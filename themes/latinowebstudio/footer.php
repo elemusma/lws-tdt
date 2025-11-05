@@ -50,13 +50,13 @@ echo wp_get_attachment_image(logoImg()['id'], 'full', false, array( 'alt' => get
   
 <div class="row">
   <div class="col-6">
-    <?php echo wp_get_attachment_image(49, 'full', false, array(
+    <?php echo wp_get_attachment_image(64860, 'full', false, array(
     'class' => 'w-100',
     'style' => 'height:150px;object-fit:cover;',
     )); ?>
   </div>
   <div class="col-6">
-    <?php echo wp_get_attachment_image(50, 'full', false, array(
+    <?php echo wp_get_attachment_image(64861, 'full', false, array(
     'class' => 'w-100',
     'style' => 'height:150px;object-fit:cover;object-position:bottom;',
     )); ?>

@@ -21,7 +21,7 @@
   <div class="blank-space" style=""></div>
 
   <header class="header-nav bg-white box-shadow w-100" style="top:0;left:0;z-index:10;box-shadow: 0px 5px 3px rgba(var(--accent-primary-rgb),.25);">
-    <div class="nav" style="padding-top:10px;">
+    <div class="nav" style="">
       <div class="container">
         <div class="row justify-content-between align-items-center">
 
@@ -66,7 +66,7 @@
             </div>
 			</div>
       <div class="col-lg-2 col-5" style="padding-left:0px;">
-            <?php echo do_shortcode('[button class="small" style="margin:0;" target="_blank" href="/inspection"]Get Inspection[/button]') ?>
+            <?php echo do_shortcode('[button class="small" style="margin:0;" target="_blank" href="/inspection"]Get Pre-Inspection[/button]') ?>
             <div style="margin-left:15px;">
       
 		<a class="d-flex align-items-center phone small" role="button" href="tel:+1<?php echo globalPhone(); ?>" style="" target="" id="">

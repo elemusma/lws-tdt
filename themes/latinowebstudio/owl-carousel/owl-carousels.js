@@ -78,7 +78,7 @@ $('.styku-scanner-carousel').owlCarousel({
     autoplayHoverPause: false,
     // animateIn: 'fadeIn',
     // animateOut: 'fadeOut',
-    navText : ["<img src='/wp-content/uploads/2025/10/Arrow-Right.png' alt='previous arrow for gallery' />","<img src='/wp-content/uploads/2025/10/Arrow-Left.png' alt='next arrow for gallery' />"],
+    navText : ["<img src='/wp-content/uploads/2025/11/Arrow-Right.png' alt='previous arrow for gallery' />","<img src='/wp-content/uploads/2025/11/Arrow-Left.png' alt='next arrow for gallery' />"],
     stagePadding: 150,
     responsive: {
       0: {

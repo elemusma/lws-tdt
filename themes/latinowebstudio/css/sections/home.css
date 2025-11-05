@@ -10,15 +10,3 @@
     transform: translate(-50%, -50%);
     z-index: -1;
 }
-
-.faqs-img:before {
-    content: "";
-    background: var(--accent-primary);
-    position: absolute;
-    border-radius: 8px;
-    width: 90%;
-    height: 100%;
-    top: -15px;
-    left: 0px;
-    z-index: -1;
-}

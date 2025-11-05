@@ -148,7 +148,17 @@ hr.text-white {
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
 }
-
+.faqs-img:before {
+    content: "";
+    background: var(--accent-primary);
+    position: absolute;
+    border-radius: 8px;
+    width: 90%;
+    height: calc(100% - 25px);
+    top: -15px;
+    left: 0px;
+    z-index: -1;
+}
 .divider {
   border-top: 2px solid var(--accent-primary);
   width: 200px;
