@@ -11,7 +11,14 @@ $posts_page_title = get_the_title($posts_page_id);
 
 </div> -->
 
-<section class="body bg-accent-secondary-gradient text-white" style="padding:50px 0;">
+<section class="body" style="padding:50px 0;">
+    <div class="position-absolute w-100 h-100" style="clip-path: polygon(100% 0, 0 0, 100% 100%);
+background: #FFF;
+background: linear-gradient(30deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 25%, rgba(163, 29, 33, 0.5) 50%, rgba(163, 29, 33, 0.75) 75%, rgba(163, 29, 33, 1) 100%);
+background: #FFF;
+background: linear-gradient(25deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 60%, rgba(163, 29, 33, 1) 100%);
+top:0;
+left:0;"></div>
     <div class="container">
         <div class="row">
 			<div class="col-12">
@@ -55,10 +62,6 @@ $posts_page_title = get_the_title($posts_page_id);
     </div>
 </section>
 
-<section class="position-relative text-white bg-black" style="padding:100px 0px;" id="new-patient-special"><div class="container" style="" id=""><div class="row justify-content-end background-wrapper" style="background: url(/wp-content/uploads/2025/08/Radiant-Results-Weight-Loss-12.jpg) center/cover no-repeat;" id=""><div class="col-lg-6 text-left position-relative aos-init aos-animate" style="padding:150px 50px;background:rgba(0,0,0,0.65);" id="" data-aos="fade-up" data-aos-delay="">
-<?php echo do_shortcode('[new_patient_special]') ?>
-    
-    
-</div></div></div></section>
+<?php get_template_part('partials/cta-block'); ?>
 
 <?php get_footer(); ?>

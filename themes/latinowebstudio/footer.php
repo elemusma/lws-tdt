@@ -13,7 +13,7 @@ if(!is_page(1807)){
 
 echo '<section class="position-relative" style="padding-top:50px;padding-bottom:25px;">';
 
-echo wp_get_attachment_image(48, 'full', false, array( 'alt' => get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' ), 'class'=>'position-absolute w-100 h-100', 'style' => 'width:100%;height:auto;opacity:1;object-fit:cover;top:0;left:0;' ));
+echo wp_get_attachment_image(65063, 'full', false, array( 'alt' => get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' ), 'class'=>'position-absolute w-100 h-100', 'style' => 'width:100%;height:auto;opacity:1;object-fit:cover;top:0;left:0;' ));
 echo '<div class="container">';
 echo '<div class="row justify-content-center">';
 

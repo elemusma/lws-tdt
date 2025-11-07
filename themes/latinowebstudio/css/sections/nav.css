@@ -20,7 +20,11 @@ to {
 animation: rotate-infinite 35s linear infinite;
 transform-origin:center;
 } */
-
+@media only screen and (max-width:767px) {
+    .nav a.btn-main.small {
+        font-size: 61%;
+    }
+}
 @keyframes navAnimation {
     from {
         top:-100%;

@@ -11,4 +11,8 @@ div#lightboxOverlay {
   outline: none;
 }
 
+.gallery-item[data-visible=false] {
+  display: none;
+}
+
 /*# sourceMappingURL=style-index.css.map*/

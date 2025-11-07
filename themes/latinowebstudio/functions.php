@@ -365,35 +365,6 @@ function tdt_contact_shortcode() {
 }
 add_shortcode('tdt_contact', 'tdt_contact_shortcode');
 
-
-// function custom_modify_block_output($block_content, $block) {
-// // Check if it's the core/paragraph, core/image, or core/columns block
-// if (in_array($block['blockName'], array('core/image', 'core/columns', 'core/quote'))) {
-// 	// Modify the block content as needed
-// 	$block_content = '<section class=""><div class="container"><div class="row"><div class="col-12">' . $block_content . '</div></div></div></section>';
-// }
-// return $block_content;
-// }
-
-// add_filter('render_block', 'custom_modify_block_output', 10, 2);
-
-// function custom_modify_block_output($block_content, $block) {
-//     global $post;
-
-//     // Check if it's the core/paragraph, core/image, or core/columns block
-//     if (
-//         in_array($block['blockName'], array('core/paragraph', 'core/image', 'core/columns'))
-//         && !has_block('core/quote', $post)
-//     ) {
-//         // Modify the block content as needed
-//         $block_content = '<section class=""><div class="container"><div class="row"><div class="col-12">' . $block_content . '</div></div></div></section>';
-//     }
-//     return $block_content;
-// }
-
-// add_filter('render_block', 'custom_modify_block_output', 10, 2);
-
-
 // Control core classes for avoid errors
 if( class_exists( 'CSF' ) ) {
 
@@ -657,22 +628,36 @@ add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mime
   }
   add_action( 'admin_head', 'fix_svg' );
 
-  function new_patient_special_shortcode() {
+
+
+  function tdt_cta_shortcode() {
     ob_start(); ?>
-    
-    <h2>New Patient Special</h2>
-    <h3><strong class="" style="text-shadow:1px 1px 1px var(--accent-primary);">$79 Red Light Body Sculpting<br>$79 Skin Rejuvenation</strong></h3>
-    <p>Claim your $79 New Patient Special today and experience your first full-body light therapy session—slimming, tightening, and rejuvenating with zero pain or downtime.</p>
-    
-    <?php 
-	echo do_shortcode('[button target="_blank" href="https://offer.getradiantresults.com" class="white" style="margin-left:0px;"]Get New Patient Special[/button]');
+    <section class="position-relative text-white bg-black" style="padding:100px 0px;" id="inspection">
+      <?php echo wp_get_attachment_image(64846,'full','',array(
+        'class'=>'w-100 h-100 position-absolute',
+        'style'=>'top:0;left:0;object-fit:cover;object-position:center;'
+      )) ?>
+      <div class="bg-black position-absolute w-100 h-100" style="top:0;left:0;opacity:.5;"></div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-9 col-12 text-center">
+
+      <h2 class="text-shadow dreamboat" style="box-shadow:inset 0 -5px 0 0 var(--accent-primary);display:inline-block;">Drive Away With Peace of Mind</h2>
+      <h3 class="text-shadow">Don&apos;t risk costly repairs or hidden damage know the truth before you buy with certified inspections and appraisals.</h3>
+      
+      <?php 
+	echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true"]');
 	// echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true"]');
-	 ?>
+  ?>
+  </div>
+        </div>
+      </div>
+  </section>
     
     <?php
     return ob_get_clean();
 }
-add_shortcode('new_patient_special', 'new_patient_special_shortcode');
+add_shortcode('tdt_cta', 'tdt_cta_shortcode');
 
 
 

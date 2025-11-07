@@ -24,12 +24,7 @@ get_template_part('partials/sidebar'); ?>
 </div>
 </section>
 
-<section class="position-relative text-white bg-black" style="padding:100px 0px;" id="new-patient-special"><div class="container" style="" id=""><div class="row justify-content-end background-wrapper" style="background: url(/wp-content/uploads/2025/08/Radiant-Results-Weight-Loss-12.jpg) center/cover no-repeat;" id=""><div class="col-lg-6 text-left position-relative aos-init aos-animate" style="padding:150px 50px;background:rgba(0,0,0,0.65);" id="" data-aos="fade-up" data-aos-delay="">
-<?php echo do_shortcode('[new_patient_special]') ?>
-    
-    
-</div></div></div></section>
-
+<?php get_template_part('partials/cta-block'); ?>
 <?php
 
 echo '<section class="bg-black text-white" style="padding:50px 0px;">';

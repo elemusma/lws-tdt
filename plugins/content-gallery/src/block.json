@@ -112,9 +112,21 @@
 			"type": "array",
 			"default": []
 		},
+		"gallery_image_count": {
+			"type": "number",
+			"default": "6"
+		},
 		"gallery_columns": {
 			"type": "string",
 			"default": "col-lg-4 col-md-6"
+		},
+		"gallery_captions_yes_no": {
+			"type": "string",
+			"default": "no"
+		},
+		"gallery_columns_style": {
+			"type": "string",
+			"default": "padding:5px;"
 		},
 		"gallery_images_lightbox": {
 			"type": "string",

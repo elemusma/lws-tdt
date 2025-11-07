@@ -68,37 +68,49 @@ export default function save( { attributes } ) {
 							
 							{ /* Your gallery rendering logic */ }
 							{ attributes.gallery_images &&
-								attributes.gallery_images.map( ( image ) => (
-							<div
-							className={ `${ attributes.gallery_columns }` }>
-								<a href={ image.url } data-lightbox={attributes.gallery_images_lightbox}>
-									<img
-										key={ image.id }
-										src={ image.url }
-										alt={ image.alt }
-										style={`${ attributes.image_style }`}
-										className={attributes.image_class}
-									/>
-									</a>
-{attributes.gallery_captions_yes_no === 'yes' && (
-									<div className="text-center">
-									  {/* Image Title */}
-  {image.title && (
-    <div className="image-title" style={{ fontWeight: 'bold', marginTop: '8px' }}>
-      <h3 style={{marginBottom:0}}>{image.title}</h3>
+  attributes.gallery_images.map( ( image, index ) => (
+    <div
+      className={ `${ attributes.gallery_columns } gallery-item` }
+      style={ attributes.gallery_columns_style }
+      data-visible={ index < attributes.gallery_image_count ? 'true' : 'false' }
+    >
+		
+      <a href={ image.url } data-lightbox={attributes.gallery_images_lightbox}>
+        <img
+          key={ image.id }
+          src={ image.url }
+          alt={ image.alt }
+          style={ attributes.image_style }
+          className={ attributes.image_class }
+        />
+      </a>
+      { attributes.gallery_captions_yes_no === 'yes' && (
+        <div className="text-center">
+          { image.title && (
+            <div className="image-title" style={{ fontWeight: 'bold', marginTop: '8px' }}>
+              <h3 style={{ marginBottom: 0 }}>{ image.title }</h3>
+            </div>
+          )}
+          { image.caption && (
+            <div className="image-caption" style={{ fontStyle: 'italic', fontSize: '0.9em' }}>
+              <h4 className="dreamboat" style={{ marginTop: '-1rem' }}>
+                <RawHTML>{ image.caption }</RawHTML>
+              </h4>
+            </div>
+          )}
+        </div>
+      )}
     </div>
-  )}
-
-  {/* Image Caption */}
-  {image.caption && (
-    <div className="image-caption" style={{ fontStyle: 'italic', fontSize: '0.9em' }}>
-      <h4 className="dreamboat" style={{marginTop:"-1rem"}}><RawHTML>{image.caption}</RawHTML></h4>
-    </div>
-  )}
+  ))
+}
+{attributes.gallery_images && attributes.gallery_images.length > 6 && (
+	<div className="col-12 text-center">
+  <button className="gallery-load-more btn-main" type="button">
+    Load More
+  </button>
   </div>
 )}
-									</div>
-								) ) }
+
 						
 						</div>
 					</div>

@@ -14,3 +14,11 @@
 div#lightboxOverlay {
     outline: none;
 }
+
+.gallery-item[data-visible="false"] {
+  display: none;
+}
+
+// body {
+//     background:red;
+// }

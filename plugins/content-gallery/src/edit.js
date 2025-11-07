@@ -72,6 +72,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		image_id,
 		gallery_images,
 		gallery_columns,
+		gallery_image_count,
+		gallery_columns_style,
 		gallery_images_lightbox,
 		gallery_captions_yes_no
 	} = attributes;
@@ -80,7 +82,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	// Utility function to set default values
 	const utilityFunction = () => ({
-		col_image_style: 'w-100 h-auto',
+		col_image_style: '',
 		col_image_class: '',
 		col_image_id: '',
 		gallery_captions_yes_no: 'no',
@@ -88,20 +90,23 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	// Apply default values on mount if not already set
 	useEffect(() => {
-		const defaults = utilityFunction();
-		const updates = {};
-		let needsUpdate = false;
+	const updates = {};
+	let needsUpdate = false;
 
-		// Check if col_image_style needs default value
-		if (!col_image_style) {
-			updates.col_image_style = defaults.col_image_style;
-			needsUpdate = true;
-		}
+	if (typeof col_image_style === 'undefined') {
+		updates.col_image_style = '';
+		needsUpdate = true;
+	}
 
-		if (needsUpdate) {
-			setAttributes(updates);
-		}
-	}, []);
+	if (typeof gallery_captions_yes_no === 'undefined') {
+		updates.gallery_captions_yes_no = 'no';
+		needsUpdate = true;
+	}
+
+	if (needsUpdate) {
+		setAttributes(updates);
+	}
+}, []);
 
 	const onSelectImages = async (newImages) => {
 		const updatedImages = await Promise.all(
@@ -298,18 +303,8 @@ export default function Edit( { attributes, setAttributes } ) {
 						}
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Gallery' ) } initialOpen={ false }>
-					<SelectControl
-						label="Add Captions"
-						value={ gallery_captions_yes_no || 'no' }
-						options={ [
-							{ label: 'Yes', value: 'yes' },
-							{ label: 'No', value: 'no' },
-						] }
-						onChange={ ( nextValue ) =>
-							setAttributes( { gallery_captions_yes_no: nextValue } )
-						}
-					/>
+				<PanelBody title={ __( 'Gallery Column Settings' ) } initialOpen={ false }>
+					
 					<InputControl
 						label="Column Image Class"
 						value={ col_image_class }
@@ -331,6 +326,27 @@ export default function Edit( { attributes, setAttributes } ) {
 							setAttributes( { col_image_id: nextValue } )
 						}
 					/>
+					</PanelBody>
+					<PanelBody title={ __( 'Gallery Images' ) } initialOpen={ false }>
+						<InputControl
+						label="Load More Image Count"
+						value={ gallery_image_count }
+						onChange={ ( nextValue ) =>
+							setAttributes( { gallery_image_count: Number(nextValue) } )
+						}
+						/>
+
+					<SelectControl
+						label="Add Captions"
+						value={ gallery_captions_yes_no || 'no' }
+						options={ [
+							{ label: 'Yes', value: 'yes' },
+							{ label: 'No', value: 'no' },
+						] }
+						onChange={ ( nextValue ) =>
+							setAttributes( { gallery_captions_yes_no: nextValue } )
+						}
+					/>
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={ onSelectImages }
@@ -350,11 +366,20 @@ export default function Edit( { attributes, setAttributes } ) {
 						gallery_columns={ gallery_columns }
 						setAttributes={setAttributes}
 					/>
+					</PanelBody>
+				<PanelBody title={ __( 'Gallery Image Settings' ) } initialOpen={ false }>
 					<InputControl
 						label="Gallery Columns Class"
 						value={ gallery_columns }
 						onChange={ ( nextValue ) =>
 							setAttributes( { gallery_columns: nextValue } )
+						}
+					/>
+					<InputControl
+						label="Gallery Columns Style"
+						value={ gallery_columns_style }
+						onChange={ ( nextValue ) =>
+							setAttributes( { gallery_columns_style: nextValue } )
 						}
 					/>
 					<InputControl

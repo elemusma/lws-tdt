@@ -39,6 +39,40 @@ img.img-si {
     border-radius: 50%;
 }
 
+ /* right */
+
+.img-backsplash:before {
+    content: "";
+    background: var(--accent-primary);
+    position: absolute;
+    border-radius: 8px;
+    width: 90%;
+    height: calc(100% - 25px);
+    top: -15px;
+    left: 0px;
+    z-index: -1;
+}
+
+.img-backsplash.right:before {
+    left:unset;
+    right:0px;
+}
+
+.img-backsplash img {
+    border-radius:8px;
+}
+
+.icons img {
+    height: 70px;
+    object-fit: contain;
+    background: white;
+    border-radius: 50%;
+    width: 70px;
+    padding: 10px;
+    /* box-shadow: 0px 0px 3px var(--accent-primary); */
+    box-shadow: 0px 0px 3px black;
+}
+
 .img-hover,
 .img-hover img {
     transition: all .25s ease-in-out;
