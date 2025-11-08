@@ -103,7 +103,7 @@ export default function save( { attributes } ) {
     </div>
   ))
 }
-{attributes.gallery_images && attributes.gallery_images.length > 6 && (
+{attributes.gallery_images && attributes.gallery_images.length > attributes.gallery_image_count && (
 	<div className="col-12 text-center">
   <button className="gallery-load-more btn-main" type="button">
     Load More

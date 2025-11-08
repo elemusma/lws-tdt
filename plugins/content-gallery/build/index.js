@@ -633,7 +633,7 @@ function save({
     style: {
       marginTop: '-1rem'
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.RawHTML, null, image.caption)))))), attributes.gallery_images && attributes.gallery_images.length > 6 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.RawHTML, null, image.caption)))))), attributes.gallery_images && attributes.gallery_images.length > attributes.gallery_image_count && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "col-12 text-center"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "gallery-load-more btn-main",
