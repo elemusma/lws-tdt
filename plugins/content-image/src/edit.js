@@ -11,8 +11,19 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { InspectorControls, useBlockProps, InnerBlocks, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { Button, PanelBody, __experimentalInputControl as InputControl,TextControl, } from '@wordpress/components';
+import {
+	InspectorControls,
+	useBlockProps,
+	InnerBlocks,
+	MediaUpload,
+	MediaUploadCheck,
+} from '@wordpress/block-editor';
+import {
+	Button,
+	PanelBody,
+	__experimentalInputControl as InputControl,
+	TextControl,
+} from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 
 /**
@@ -31,246 +42,395 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit({attributes, setAttributes}) {
-	const { section_style, section_class, section_id, section_image,section_image_alt, section_image_class, section_image_style, section_block, container_style, container_class, container_id, row_style, row_class, row_id, col_style, col_class, col_id,col_data_aos, col_data_aos_delay, col_image, col_image_alt, col_image_style, col_image_class,col_image_id, col_image_data_aos, col_image_data_aos_delay, image_style,image_class,image_id } = attributes;
+export default function Edit( { attributes, setAttributes } ) {
+	const {
+		section_style,
+		section_class,
+		section_id,
+		section_image,
+		section_image_title,
+		section_image_alt,
+		section_image_class,
+		section_image_style,
+		section_block,
+		container_style,
+		container_class,
+		container_id,
+		row_style,
+		row_class,
+		row_id,
+		col_style,
+		col_class,
+		col_id,
+		col_data_aos,
+		col_data_aos_delay,
+		col_image,
+		col_image_alt,
+		col_image_title,
+		col_image_style,
+		col_image_class,
+		col_image_id,
+		col_image_data_aos,
+		col_image_data_aos_delay,
+		image_style,
+		image_class,
+		image_id,
+	} = attributes;
 
-	const [value, setValue] = useState('');
+	const [ value, setValue ] = useState( '' );
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__('Section')} initialOpen={false}>
+				<PanelBody title={ __( 'Section' ) } initialOpen={ false }>
 					<InputControl
 						label="Section Style"
-						value={section_style}
-						onChange={(nextValue) => setAttributes({ section_style: nextValue })}
+						value={ section_style }
+						onChange={ ( nextValue ) =>
+							setAttributes( { section_style: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Section Class"
-						value={section_class}
-						onChange={(nextValue) => setAttributes({ section_class: nextValue })}
+						value={ section_class }
+						onChange={ ( nextValue ) =>
+							setAttributes( { section_class: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Section ID"
-						value={section_id}
-						onChange={(nextValue) => setAttributes({ section_id: nextValue })}
+						value={ section_id }
+						onChange={ ( nextValue ) =>
+							setAttributes( { section_id: nextValue } )
+						}
 					/>
-					
-					
 				</PanelBody>
-				<PanelBody title={__('Background Image')} initialOpen={false}>
-				<MediaUploadCheck>
-  <MediaUpload
-    onSelect={(media) => setAttributes({ section_image: media.url, section_image_alt: media.alt })}
-    type="image"
-    allowedTypes={['image']}
-    value={section_image}
-    render={({ open }) => (
-      <div>
-        {section_image && (
-          <>
-            <Button
-              isLink
-              isDestructive
-              onClick={() => setAttributes({ section_image: '', section_image_alt: '' })}
-            >
-              {__('Remove Section Image')}
-            </Button>
-            <img src={section_image} alt={section_image_alt || 'Image'} />
-            {section_image_alt && (
-              <p>{__('Alt Text:')} {section_image_alt}</p>
-            )}
-          </>
-        )}
-        <Button
-          onClick={open}
-          icon="upload"
-          className="editor-media-placeholder__button is-button is-default is-large"
-        >
-          {__('Select Section Image')}
-        </Button>
-      </div>
-    )}
-  />
-</MediaUploadCheck>
-
+				<PanelBody
+					title={ __( 'Background Image' ) }
+					initialOpen={ false }
+				>
+					<MediaUploadCheck>
+						<MediaUpload
+							onSelect={ ( media ) =>
+								setAttributes( {
+									section_image: media.url,
+									section_image_alt: media.alt,
+									section_image_title:
+										media.title?.rendered ||
+										media.title ||
+										'',
+								} )
+							}
+							type="image"
+							allowedTypes={ [ 'image' ] }
+							value={ section_image }
+							render={ ( { open } ) => (
+								<div>
+									{ section_image && (
+										<>
+											<Button
+												isLink
+												isDestructive
+												onClick={ () =>
+													setAttributes( {
+														section_image: '',
+														section_image_alt: '',
+														section_image_title: '',
+													} )
+												}
+											>
+												{ __( 'Remove Section Image' ) }
+											</Button>
+											<img
+												src={ section_image }
+												alt={
+													section_image_alt || 'Image'
+												}
+											/>
+											{ section_image_alt && (
+												<p>
+													{ __( 'Alt Text:' ) }{ ' ' }
+													{ section_image_alt ||
+														section_image_title }
+												</p>
+											) }
+										</>
+									) }
+									<Button
+										onClick={ open }
+										icon="upload"
+										className="editor-media-placeholder__button is-button is-default is-large"
+									>
+										{ __( 'Select Section Image' ) }
+									</Button>
+								</div>
+							) }
+						/>
+					</MediaUploadCheck>
 
 					<InputControl
 						label="Background Image Class"
-						value={section_image_class}
-						onChange={(nextValue) => setAttributes({ section_image_class: nextValue })}
+						value={ section_image_class }
+						onChange={ ( nextValue ) =>
+							setAttributes( { section_image_class: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Background Image Style"
-						value={section_image_style}
-						onChange={(nextValue) => setAttributes({ section_image_style: nextValue })}
+						value={ section_image_style }
+						onChange={ ( nextValue ) =>
+							setAttributes( { section_image_style: nextValue } )
+						}
 					/>
 				</PanelBody>
-				<PanelBody title={__('Code Block')} initialOpen={false}>
-					<label style={{lineHeight:'2'}}>Code Block</label>
+				<PanelBody title={ __( 'Code Block' ) } initialOpen={ false }>
+					<label style={ { lineHeight: '2' } }>Code Block</label>
 					<textarea
 						id="sectionStyleTextarea"
-						value={attributes.section_block}
-						onChange={(event) => setAttributes({ section_block: event.target.value })}
+						value={ attributes.section_block }
+						onChange={ ( event ) =>
+							setAttributes( {
+								section_block: event.target.value,
+							} )
+						}
 						placeholder="Enter section block here"
-						style={{width:'100%',height:'100px'}}
+						style={ { width: '100%', height: '100px' } }
 					/>
 				</PanelBody>
-				<PanelBody title={__('Container')} initialOpen={false}>
+				<PanelBody title={ __( 'Container' ) } initialOpen={ false }>
 					<InputControl
 						label="Container Section Style"
-						value={container_style}
-						onChange={(nextValue) => setAttributes({ container_style: nextValue })}
+						value={ container_style }
+						onChange={ ( nextValue ) =>
+							setAttributes( { container_style: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Container Section Class"
-						value={container_class}
-						onChange={(nextValue) => setAttributes({ container_class: nextValue })}
+						value={ container_class }
+						onChange={ ( nextValue ) =>
+							setAttributes( { container_class: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Container Section ID"
-						value={container_id}
-						onChange={(nextValue) => setAttributes({ container_id: nextValue })}
+						value={ container_id }
+						onChange={ ( nextValue ) =>
+							setAttributes( { container_id: nextValue } )
+						}
 					/>
 				</PanelBody>
-				<PanelBody title={__('Row')} initialOpen={false}>
+				<PanelBody title={ __( 'Row' ) } initialOpen={ false }>
 					<InputControl
 						label="Row Style"
-						value={row_style}
-						onChange={(nextValue) => setAttributes({ row_style: nextValue })}
+						value={ row_style }
+						onChange={ ( nextValue ) =>
+							setAttributes( { row_style: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Row Class"
-						value={row_class}
-						onChange={(nextValue) => setAttributes({ row_class: nextValue })}
+						value={ row_class }
+						onChange={ ( nextValue ) =>
+							setAttributes( { row_class: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Row ID"
-						value={row_id}
-						onChange={(nextValue) => setAttributes({ row_id: nextValue })}
+						value={ row_id }
+						onChange={ ( nextValue ) =>
+							setAttributes( { row_id: nextValue } )
+						}
 					/>
 				</PanelBody>
-				<PanelBody title={__('Column')} initialOpen={false}>
+				<PanelBody title={ __( 'Column' ) } initialOpen={ false }>
 					<InputControl
 						label="Column Style"
-						value={col_style}
-						onChange={(nextValue) => setAttributes({ col_style: nextValue })}
+						value={ col_style }
+						onChange={ ( nextValue ) =>
+							setAttributes( { col_style: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Column Class"
-						value={col_class}
-						onChange={(nextValue) => setAttributes({ col_class: nextValue })}
+						value={ col_class }
+						onChange={ ( nextValue ) =>
+							setAttributes( { col_class: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Column ID"
-						value={col_id}
-						onChange={(nextValue) => setAttributes({ col_id: nextValue })}
+						value={ col_id }
+						onChange={ ( nextValue ) =>
+							setAttributes( { col_id: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Column Data AOS"
-						value={col_data_aos}
-						onChange={(nextValue) => setAttributes({ col_data_aos: nextValue })}
+						value={ col_data_aos }
+						onChange={ ( nextValue ) =>
+							setAttributes( { col_data_aos: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Column Data AOS Delay"
-						value={col_data_aos_delay}
-						onChange={(nextValue) => setAttributes({ col_data_aos_delay: nextValue })}
+						value={ col_data_aos_delay }
+						onChange={ ( nextValue ) =>
+							setAttributes( { col_data_aos_delay: nextValue } )
+						}
 					/>
 				</PanelBody>
-				<PanelBody title={__('Image')} initialOpen={false}>
-				<InputControl
+				<PanelBody title={ __( 'Image' ) } initialOpen={ false }>
+					<InputControl
 						label="Column Image Class"
-						value={col_image_class}
-						onChange={(nextValue) => setAttributes({ col_image_class: nextValue })}
+						value={ col_image_class }
+						onChange={ ( nextValue ) =>
+							setAttributes( { col_image_class: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Column Image Style"
-						value={col_image_style}
-						onChange={(nextValue) => setAttributes({ col_image_style: nextValue })}
+						value={ col_image_style }
+						onChange={ ( nextValue ) =>
+							setAttributes( { col_image_style: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Column Image ID"
-						value={col_image_id}
-						onChange={(nextValue) => setAttributes({ col_image_id: nextValue })}
+						value={ col_image_id }
+						onChange={ ( nextValue ) =>
+							setAttributes( { col_image_id: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Column Image Data AOS"
-						value={col_image_data_aos}
-						onChange={(nextValue) => setAttributes({ col_image_data_aos: nextValue })}
+						value={ col_image_data_aos }
+						onChange={ ( nextValue ) =>
+							setAttributes( { col_image_data_aos: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Column Image Data AOS Delay"
-						value={col_image_data_aos_delay}
-						onChange={(nextValue) => setAttributes({ col_image_data_aos_delay: nextValue })}
+						value={ col_image_data_aos_delay }
+						onChange={ ( nextValue ) =>
+							setAttributes( {
+								col_image_data_aos_delay: nextValue,
+							} )
+						}
 					/>
-<MediaUploadCheck>
-  <MediaUpload
-    onSelect={(media) => setAttributes({ col_image: media.url, col_image_alt: media.alt })}
-    type="image"
-    allowedTypes={['image']}
-    value={col_image}
-    render={({ open }) => (
-      <div>
-        {col_image && (
-          <>
-            <Button
-              isLink
-              isDestructive
-              onClick={() => setAttributes({ col_image: '', col_image_alt: '' })}
-            >
-              {__('Remove Col Image')}
-            </Button>
-            {/* Display the image with alt text */}
-            <img src={col_image} alt={col_image_alt || 'Default alt text'} />
-            {col_image_alt && (
-              <p>{__('Alt Text:')} {col_image_alt}</p>
-            )}
-          </>
-        )}
-        <Button
-          onClick={open}
-          icon="upload"
-          className="editor-media-placeholder__button is-button is-default is-large"
-        >
-          {__('Select Col Image')}
-        </Button>
-      </div>
-    )}
-  />
-</MediaUploadCheck>
+					<MediaUploadCheck>
+						<MediaUpload
+							onSelect={ ( media ) =>
+								setAttributes( {
+									col_image: media.url,
+									col_image_alt: media.alt,
+									col_image_title:
+										media.title?.rendered ||
+										media.title ||
+										'',
+								} )
+							}
+							type="image"
+							allowedTypes={ [ 'image' ] }
+							value={ col_image }
+							render={ ( { open } ) => (
+								<div>
+									{ col_image && (
+										<>
+											<Button
+												isLink
+												isDestructive
+												onClick={ () =>
+													setAttributes( {
+														col_image: '',
+														col_image_alt: '',
+														col_image_title: '',
+													} )
+												}
+											>
+												{ __( 'Remove Col Image' ) }
+											</Button>
+											{ /* Display the image with alt text */ }
+											<img
+												src={ col_image }
+												alt={
+													col_image_alt ||
+													'Default alt text'
+												}
+											/>
+											{ /* {col_image_alt && ( */ }
+											<p>
+												{ __( 'Alt Text:' ) }{ ' ' }
+												{ col_image_alt ||
+													col_image_title }
+											</p>
+											{ /* )} */ }
+										</>
+									) }
+									<Button
+										onClick={ open }
+										icon="upload"
+										className="editor-media-placeholder__button is-button is-default is-large"
+									>
+										{ __( 'Select Col Image' ) }
+									</Button>
+								</div>
+							) }
+						/>
+					</MediaUploadCheck>
 
-<InputControl
+					<InputControl
 						label="Image Class"
-						value={image_class}
-						onChange={(nextValue) => setAttributes({ image_class: nextValue })}
+						value={ image_class }
+						onChange={ ( nextValue ) =>
+							setAttributes( { image_class: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Image Style"
-						value={image_style}
-						onChange={(nextValue) => setAttributes({ image_style: nextValue })}
+						value={ image_style }
+						onChange={ ( nextValue ) =>
+							setAttributes( { image_style: nextValue } )
+						}
 					/>
 					<InputControl
 						label="Image ID"
-						value={image_id}
-						onChange={(nextValue) => setAttributes({ image_id: nextValue })}
+						value={ image_id }
+						onChange={ ( nextValue ) =>
+							setAttributes( { image_id: nextValue } )
+						}
 					/>
-					
 				</PanelBody>
 			</InspectorControls>
-			<section {...useBlockProps()}>
-			{section_image && (
-  <img src={section_image} alt={section_image_alt || 'Electrical Engineering Expert Witness'} />
-)}
-				{/* {console.log(section_image)} */}
-				<div style={{ display: 'flex' }}>
-  <div style={{ flex: '1', marginRight: '20px', width: '50%' }}>
-    <InnerBlocks />
-  </div>
-  <div style={{ flex: '1', width: '50%' }}>
-    <img src={col_image} alt={col_image_alt} style={{ width: '100%', height: 'auto' }} />
-  </div>
-</div>
-
+			<section { ...useBlockProps() }>
+				{ section_image && (
+					<img
+						src={ section_image }
+						alt={
+							section_image_alt ||
+							'Electrical Engineering Expert Witness'
+						}
+					/>
+				) }
+				{ /* {console.log(section_image)} */ }
+				<div style={ { display: 'flex' } }>
+					<div
+						style={ {
+							flex: '1',
+							marginRight: '20px',
+							width: '50%',
+						} }
+					>
+						<InnerBlocks />
+					</div>
+					<div style={ { flex: '1', width: '50%' } }>
+						<img
+							src={ col_image }
+							alt={ col_image_alt || col_image_title }
+							style={ { width: '100%', height: 'auto' } }
+						/>
+					</div>
+				</div>
 			</section>
 		</>
 	);

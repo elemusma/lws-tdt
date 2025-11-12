@@ -9,12 +9,12 @@
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
 	"supports": {
-		"html": false
+		"html": true
 	},
 	"attributes": {
 		"section_style": {
 			"type": "string",
-			"default": "padding:50px 0px;"
+			"default": "padding:100px 0px;"
 		},
 		"section_class": {
 			"type": "string",
@@ -25,22 +25,27 @@
 			"default": ""
 		},
 		"section_image": {
-		  "type": "string",
-		  "default": null
+			"type": "string",
+			"default": null
+		},
+		"section_image_title": {
+			"type": "string"
 		},
 		"section_image_alt": {
-		  "type": "string",
-		  "default": null
+			"type": "string",
+			"default": null
 		},
-	"section_image_class": {
-	  "type": "string"
-	},
-	"section_image_style": {
-	  "type": "string"
-	},
+		"section_image_class": {
+			"type": "string",
+			"default": "w-100 h-100 position-absolute bg-img"
+		},
+		"section_image_style": {
+			"type": "string",
+			"default": "top:0;left:0;object-fit:cover;pointer-events:none;"
+		},
 		"section_block": {
-		  "type": "string",
-		  "default":""
+			"type": "string",
+			"default": ""
 		},
 		"container_style": {
 			"type": "string",

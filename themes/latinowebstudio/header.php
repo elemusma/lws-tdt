@@ -66,7 +66,7 @@
             </div>
 			</div>
       <div class="col-lg-2 col-5" style="padding-left:0px;">
-            <?php echo do_shortcode('[button class="small" style="margin:0;" target="_blank" href="/inspection"]Get Pre-Inspection[/button]') ?>
+            <?php echo do_shortcode('[button class="small" style="margin:0;" href="/pre-inspection"]Get Pre-Inspection[/button]') ?>
             <div style="margin-left:15px;">
       
 		<a class="d-flex align-items-center phone small" role="button" href="tel:+1<?php echo globalPhone(); ?>" style="" target="" id="">

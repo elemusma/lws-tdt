@@ -51,6 +51,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		section_class,
 		section_id,
 		section_image,
+		section_image_alt,
+		section_image_title,
 		section_image_class,
 		section_image_style,
 		section_block,
@@ -80,6 +82,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		data_aos: 'fade-up',
 		data_aos_delay:'',
 		img: '',
+	    img_alt: '',
+  		img_title: '',  // Add this line
 		img_class: 'w-100',
 		img_style: '',
 		title: 'new column',
@@ -149,36 +153,36 @@ export default function Edit( { attributes, setAttributes } ) {
 				>
 					<MediaUploadCheck>
 						<MediaUpload
-							onSelect={ ( media ) =>
-								setAttributes( { section_image: media.url } )
-							}
+							onSelect={(media) => setAttributes({ section_image: media.url, section_image_alt: media.alt,section_image_title: media.title?.rendered || media.title || '' })}
 							type="image"
-							allowedTypes={ [ 'image' ] }
-							value={ section_image }
-							render={ ( { open } ) => (
+							allowedTypes={['image']}
+							value={section_image}
+							render={({ open }) => (
 								<div>
-									{ section_image && (
-										<Button
-											isLink
-											isDestructive
-											onClick={ () =>
-												setAttributes( {
-													section_image: '',
-												} )
-											}
-										>
-											{ __( 'Remove Section Image' ) }
-										</Button>
-									) }
+									{section_image && (
+										<>
+											<Button
+												isLink
+												isDestructive
+												onClick={() => setAttributes({ section_image: '', section_image_alt: '',section_image_title: '' })}
+											>
+												{__('Remove Section Image')}
+											</Button>
+											<img src={section_image} alt={section_image_alt || section_image_title} style={{maxWidth: '100%'}} />
+											{/* {section_image_alt && ( */}
+												<p>{__('Alt Text:')} {section_image_alt || section_image_title}</p>
+											{/* // )} */}
+										</>
+									)}
 									<Button
-										onClick={ open }
+										onClick={open}
 										icon="upload"
 										className="editor-media-placeholder__button is-button is-default is-large"
 									>
-										{ __( 'Select Section Image' ) }
+										{__('Select Section Image')}
 									</Button>
 								</div>
-							) }
+							)}
 						/>
 					</MediaUploadCheck>
 
@@ -198,11 +202,6 @@ export default function Edit( { attributes, setAttributes } ) {
 					/>
 				</PanelBody>
 				<PanelBody title={ __( 'Code Block' ) } initialOpen={ false }>
-					{ /* <InputControl
-						label="Code Block"
-						value={section_block}
-						onChange={(nextValue) => setAttributes({ section_block: nextValue })}
-					/> */ }
 					<label style={ { lineHeight: '2' } }>Code Block</label>
 					<textarea
 						id="sectionStyleTextarea"
@@ -462,21 +461,21 @@ export default function Edit( { attributes, setAttributes } ) {
 <MediaUploadCheck>
 	<MediaUpload
 		onSelect={(media) =>
-			updateColumn(index, 'img', { img: media.url, alt: media.alt })
-		}
+  updateColumn(index, null, { img: media.url, img_alt: media.alt, img_title: media.title?.rendered || media.title || '' })
+}
 		type="image"
 		allowedTypes={['image']}
 		value={column.img}
 		render={({ open }) => (
 			<div>
 				{column.img && (
-				<p className={``} style={{fontSize:'80%',lineHeight:'1.2'}}>{__('Alt Text:')} {column.alt}</p>
+				<p className={``} style={{fontSize:'80%',lineHeight:'1.2'}}>{__('Alt Text:')} {column.alt || column.img_title}</p>
 			)}
 				{column.img && (
 					<Button
 						isLink
 						isDestructive
-						onClick={() => updateColumn(index, 'img', '')}
+						onClick={() => updateColumn(index, null, {img: '', img_alt: '', img_title: ''})}
 					>
 						{__('Remove Col Image')}
 					</Button>
@@ -493,14 +492,15 @@ export default function Edit( { attributes, setAttributes } ) {
 	/>
 </MediaUploadCheck>
 { column.img && (
-	<img
-		src={ column.img }
-		style={ {
-			width: '400px',
-			height: '225px',
-			objectFit: 'cover',
-		} }
-	/>
+  <img
+    src={ column.img }
+    alt={ column.img_alt || column.img_title }
+    style={ {
+      width: '400px',
+      height: '225px',
+      objectFit: 'cover',
+    } }
+  />
 )}
 
 										<div style={{display:'flex'}}>

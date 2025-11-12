@@ -22,7 +22,7 @@ export default function save( { attributes } ) {
 	return (
 		<div { ...blockProps }>
 			<section
-				className={ `position-relative ${ attributes.section_class }` }
+				className={ `${ attributes.section_class }` }
 				style={ `${ attributes.section_style }` }
 				id={ attributes.section_id }
 			>
@@ -30,56 +30,69 @@ export default function save( { attributes } ) {
 					<img
 						src={ attributes.section_image }
 						alt={ attributes.section_image_alt }
-						className={ `w-100 h-100 position-absolute bg-img ${ attributes.section_image_class }` }
-						style={ `top:0;left:0;object-fit:cover;pointer-events:none;${ attributes.section_image_style }` }
+						className={ `${ attributes.section_image_class }` }
+						style={ `${ attributes.section_image_style }` }
 					/>
 				) }
 
-<RawHTML>{ attributes.section_block }</RawHTML>
+				<RawHTML>{ attributes.section_block }</RawHTML>
 
-<div
-	className={ attributes.container_class }
-	style={ attributes.container_style }
-	id={ attributes.container_id }
->
-	<div
-		className={ attributes.row_class }
-		style={ attributes.row_style }
-		id={ attributes.row_id }
-	>
+				<div
+					className={ attributes.container_class }
+					style={ attributes.container_style }
+					id={ attributes.container_id }
+				>
+					<div
+						className={ attributes.row_class }
+						style={ attributes.row_style }
+						id={ attributes.row_id }
+					>
+						{ /* <div className="column-wrapper"> */ }
+						{ attributes.columns.map( ( column, index ) => {
+							return (
+								<div
+									className={ `${ column.col_class }` }
+									style={ `${ column.col_style }` }
+									id={ `${ column.col_id }` }
+								>
+									<div
+										className={ column.data_aos_class }
+										style={ column.data_aos_style }
+										data-aos={ column.data_aos }
+										data-aos-delay={ column.data_aos_delay }
+									>
+										{ column.img && (
+											<img
+												src={ column.img }
+												alt={
+													column.img_alt ||
+													column.img_title
+												}
+												className={ column.img_class }
+												style={ column.img_style }
+											/>
+										) }
+										<div
+											className={ ` ${ column.col_inner_class }` }
+											style={ column.col_inner_style }
+										>
+											{ column.title && (
+												<h2 className={ `h3` }>
+													{ column.title }
+												</h2>
+											) }
 
-
-{/* <div className="column-wrapper"> */}
-					{ attributes.columns.map( ( column, index ) => {
-						return (
-							<div className={ `column ${ column.col_class }` } style={`${column.col_style}`} id={`${column.col_id}`}>
-								
-<div className={column.data_aos_class} style={column.data_aos_style} data-aos={column.data_aos} data-aos-delay={column.data_aos_delay}>
-
-{ column.img && (
-								<img
-									src={ column.img }
-									alt={ column.alt }
-									className={column.img_class}
-									style={column.img_style}
-								/>
-)}
-								<div className={` ${column.col_inner_class}`} style={column.col_inner_style}>
-{ column.title && (
-								<h2 className={`h3`}>{ column.title }</h2>
-)}
-								
-								<RawHTML>{ column.content }</RawHTML>
-</div>
+											<RawHTML>
+												{ column.content }
+											</RawHTML>
+										</div>
+									</div>
 								</div>
-							</div>
-						);
-					} ) }
-				{/* </div> */}
-				
+							);
+						} ) }
+						{ /* </div> */ }
+					</div>
 				</div>
-				</div>
-				
 			</section>
 		</div>
 	);

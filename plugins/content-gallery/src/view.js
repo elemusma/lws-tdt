@@ -24,19 +24,24 @@
 console.log( 'Hello World! (from create-block-content-gallery block)' );
 /* eslint-enable no-console */
 
-document.addEventListener('DOMContentLoaded', function () {
-      const loadMoreBtn = document.querySelector('.gallery-load-more');
-      if (!loadMoreBtn) return;
+document.addEventListener( 'DOMContentLoaded', function () {
+	const loadMoreBtn = document.querySelector( '.gallery-load-more' );
+	if ( ! loadMoreBtn ) return;
 
-      loadMoreBtn.addEventListener('click', function () {
-        const hiddenItems = document.querySelectorAll('.gallery-item[data-visible="false"]');
-        hiddenItems.forEach((item, i) => {
-          if (i < 6) item.setAttribute('data-visible', 'true');
-        });
+	loadMoreBtn.addEventListener( 'click', function () {
+		const hiddenItems = document.querySelectorAll(
+			'.gallery-item[data-visible="false"]'
+		);
+		hiddenItems.forEach( ( item, i ) => {
+			if ( i < 6 ) item.setAttribute( 'data-visible', 'true' );
+		} );
 
-        // Hide the button if everything is visible
-        if (document.querySelectorAll('.gallery-item[data-visible="false"]').length === 0) {
-          loadMoreBtn.style.display = 'none';
-        }
-      });
-    });
+		// Hide the button if everything is visible
+		if (
+			document.querySelectorAll( '.gallery-item[data-visible="false"]' )
+				.length === 0
+		) {
+			loadMoreBtn.style.display = 'none';
+		}
+	} );
+} );

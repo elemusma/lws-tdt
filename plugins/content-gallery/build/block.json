@@ -9,7 +9,7 @@
   "description": "Example block scaffolded with Create Block tool.",
   "example": {},
   "supports": {
-    "html": false
+    "html": true
   },
   "attributes": {
     "section_style": {
@@ -35,6 +35,10 @@
     "section_image_style": {
       "type": "string",
       "default": "top:0;left:0;object-fit:cover;pointer-events:none;"
+    },
+    "section_image_title": {
+      "type": "string",
+      "default": null
     },
     "section_image_alt": {
       "type": "string",

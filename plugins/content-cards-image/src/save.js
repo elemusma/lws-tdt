@@ -22,17 +22,17 @@ export default function save( { attributes } ) {
 	return (
 		<div { ...blockProps }>
 			<section
-				className={ `position-relative ${ attributes.section_class }` }
-				style={ `padding:50px 0;${ attributes.section_style }` }
+				className={ `${ attributes.section_class }` }
+				style={ `${ attributes.section_style }` }
 				id={ attributes.section_id }
 			>
 				{ /* <div className="column-wrapper"> */ }
 				{ attributes.section_image && (
 					<img
 						src={ attributes.section_image }
-						alt=""
-						className={ `w-100 h-100 position-absolute bg-img ${ attributes.section_image_class }` }
-						style={ `top:0;left:0;object-fit:cover;pointer-events:none;${ attributes.section_image_style }` }
+						alt={ attributes.section_image_alt || attributes.section_image_title }
+						className={ `${ attributes.section_image_class }` }
+						style={ `${ attributes.section_image_style }` }
 					/>
 				) }
 
@@ -73,7 +73,7 @@ export default function save( { attributes } ) {
 										{ column.img && (
 											<img
 												src={ column.img }
-												alt={ column.alt }
+												alt={ column.img_alt || column.img_title }
 												style={ column.img_style }
 												className={ column.img_class }
 											/>

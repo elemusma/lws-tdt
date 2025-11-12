@@ -17,32 +17,73 @@ import { RawHTML } from '@wordpress/element';
  *
  * @return {Element} Element to render.
  */
-export default function save({attributes}) {
+export default function save( { attributes } ) {
 	const blockProps = useBlockProps.save();
 	return (
-		<div {...blockProps}>
-		<section className={`${attributes.section_class}`} style={`${attributes.section_style}`} id={attributes.section_id}>
-		{attributes.section_image && (
-			<img src={attributes.section_image} alt={attributes.section_image_alt} className={`w-100 h-100 position-absolute bg-img ${attributes.section_image_class}`} style={`top:0;left:0;object-fit:cover;pointer-events:none;${attributes.section_image_style}`} />
-		)}
+		<div { ...blockProps }>
+			<section
+				className={ `${ attributes.section_class }` }
+				style={ `${ attributes.section_style }` }
+				id={ attributes.section_id }
+			>
+				{ attributes.section_image && (
+					<img
+						src={ attributes.section_image }
+						alt={
+							attributes.section_image_alt ||
+							attributes.section_image_title
+						}
+						className={ `w-100 h-100 position-absolute bg-img ${ attributes.section_image_class }` }
+						style={ `top:0;left:0;object-fit:cover;pointer-events:none;${ attributes.section_image_style }` }
+					/>
+				) }
 
-			<RawHTML>{attributes.section_block}</RawHTML>
+				<RawHTML>{ attributes.section_block }</RawHTML>
 
-			<div className={attributes.container_class} style={attributes.container_style} id={attributes.container_id}>
-				<div className={attributes.row_class} style={attributes.row_style} id={attributes.row_id}>
-					<div className={attributes.col_class} style={attributes.col_style} id={attributes.col_id} data-aos={attributes.col_data_aos} data-aos-delay={attributes.col_data_aos_delay}>
-					<InnerBlocks.Content />
+				<div
+					className={ attributes.container_class }
+					style={ attributes.container_style }
+					id={ attributes.container_id }
+				>
+					<div
+						className={ attributes.row_class }
+						style={ attributes.row_style }
+						id={ attributes.row_id }
+					>
+						<div
+							className={ attributes.col_class }
+							style={ attributes.col_style }
+							id={ attributes.col_id }
+							data-aos={ attributes.col_data_aos }
+							data-aos-delay={ attributes.col_data_aos_delay }
+						>
+							<InnerBlocks.Content />
+						</div>
+						<div
+							className={ attributes.col_image_class }
+							style={ attributes.col_image_style }
+							id={ attributes.col_image_id }
+							data-aos={ attributes.col_image_data_aos }
+							data-aos-delay={
+								attributes.col_image_data_aos_delay
+							}
+						>
+							{ attributes.col_image && (
+								<img
+									src={ attributes.col_image }
+									alt={
+										attributes.col_image_alt ||
+										attributes.col_image_title
+									}
+									className={ `${ attributes.image_class }` }
+									style={ `width:100%;height:auto;${ attributes.image_style }` }
+									id={ attributes.image_id }
+								/>
+							) }
+						</div>
 					</div>
-					<div className={attributes.col_image_class} style={attributes.col_image_style} id={attributes.col_image_id} data-aos={attributes.col_image_data_aos} data-aos-delay={attributes.col_image_data_aos_delay}>
-					{attributes.col_image && (
-
-			<img src={attributes.col_image} alt={attributes.col_image_alt} className={`${attributes.image_class}`} style={`width:100%;height:auto;${attributes.image_style}`} id={attributes.image_id} />			
-		)}
-
-		</div>
 				</div>
-			</div>
-		</section>
+			</section>
 		</div>
 	);
 }

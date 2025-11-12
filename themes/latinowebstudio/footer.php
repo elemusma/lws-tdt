@@ -95,12 +95,7 @@ echo wp_get_attachment_image(logoImg()['id'], 'full', false, array( 'alt' => get
 ));
   ?>
   <h2 style="margin-bottom:0px;font-size:24px;">Vehicle Types We Inspect</h2>
-  <?php 
-  wp_nav_menu(array(
-    'menu' => 'Vehicle Types',
-    'menu_class'=>'menu list-unstyled mb-0 d-flex justify-content-start align-items-center flex-wrap',
-));
-  ?>
+  <p>Commercial Vehicles <span class="text-accent">|</span> Campers <span class="text-accent">|</span> Motorhomes <span class="text-accent">|</span> Luxury Vehicles <span class="text-accent">|</span> Exotic Cars <span class="text-accent">|</span> Classic Cars <span class="text-accent">|</span> Used Cars</p>
   <h2 style="margin-bottom:0px;font-size:24px;">Areas of Service</h2>
   <p style="margin-top:0px;"><?php echo secondaryDescription() ?></p>
 

@@ -29,7 +29,7 @@ var __webpack_exports__ = {};
 console.log('Hello World! (from create-block-content-faqs block)');
 /* eslint-enable no-console */
 
-let accordions = document.querySelectorAll(".accordion");
+let accordions = document.querySelectorAll('.accordion');
 // SIMPLE ACCORDION
 // for (let i = 0; i < accordions.length; ++i) {
 //   accordions[i].addEventListener("click", function(){
@@ -56,7 +56,7 @@ function toggleAccordion() {
   // console.log(accordionContentInner)
 }
 for (let i = 0; i < accordions.length; ++i) {
-  accordions[i].addEventListener("click", toggleAccordion);
+  accordions[i].addEventListener('click', toggleAccordion);
 }
 /******/ })()
 ;

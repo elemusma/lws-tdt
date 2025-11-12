@@ -1,7 +1,7 @@
 <?php
 // This file is generated. Do not modify it manually.
 return array(
-	'content-cards' => array(
+	'build' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'create-block/content-cards',
@@ -14,7 +14,7 @@ return array(
 			
 		),
 		'supports' => array(
-			'html' => false
+			'html' => true
 		),
 		'attributes' => array(
 			'section_style' => array(
@@ -33,17 +33,21 @@ return array(
 				'type' => 'string',
 				'default' => null
 			),
+			'section_image_title' => array(
+				'type' => 'string',
+				'default' => null
+			),
 			'section_image_alt' => array(
 				'type' => 'string',
 				'default' => null
 			),
 			'section_image_class' => array(
 				'type' => 'string',
-				'default' => ''
+				'default' => 'w-100 h-100 position-absolute bg-img'
 			),
 			'section_image_style' => array(
 				'type' => 'string',
-				'default' => ''
+				'default' => 'top:0;left:0;object-fit:cover;pointer-events:none;'
 			),
 			'section_block' => array(
 				'type' => 'string',

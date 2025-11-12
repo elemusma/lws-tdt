@@ -88,6 +88,8 @@ function Edit({
     data_aos_class: '',
     data_aos_style: '',
     img: '',
+    img_alt: '',
+    img_title: '',
     img_class: 'w-100',
     img_style: 'height:100px;object-fit:contain;',
     col_inner_class: '',
@@ -166,7 +168,8 @@ function Edit({
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
             onSelect: media => setAttributes({
               section_image: media.url,
-              section_image_alt: media.alt
+              section_image_alt: media.alt,
+              section_image_title: media.title?.rendered || media.title || ''
             }),
             type: "image",
             allowedTypes: ['image'],
@@ -180,14 +183,18 @@ function Edit({
                   isDestructive: true,
                   onClick: () => setAttributes({
                     section_image: '',
-                    section_image_alt: ''
+                    section_image_alt: '',
+                    section_image_title: ''
                   }),
                   children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Remove Section Image')
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
                   src: section_image,
-                  alt: section_image_alt || 'Image'
-                }), section_image_alt && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
-                  children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Alt Text:'), " ", section_image_alt]
+                  alt: section_image_alt || section_image_title,
+                  style: {
+                    maxWidth: '100%'
+                  }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+                  children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Alt Text:'), ' ', section_image_alt || section_image_title]
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
                 onClick: open,
@@ -431,15 +438,17 @@ function Edit({
                 },
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
                   src: column.img,
+                  alt: column.img_alt || column.img_title,
                   style: {
                     width: '200px',
                     height: 'auto'
                   }
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
-                    onSelect: media => updateColumn(index, 'img', {
+                    onSelect: media => updateColumn(index, null, {
                       img: media.url,
-                      alt: media.alt
+                      img_alt: media.alt,
+                      img_title: media.title?.rendered || media.title || ''
                     }),
                     type: "image",
                     allowedTypes: ['image'],
@@ -453,11 +462,15 @@ function Edit({
                           fontSize: '80%',
                           lineHeight: '1.2'
                         },
-                        children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Alt Text:'), " ", column.alt]
+                        children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Alt Text:'), ' ', column.img_alt || column.img_title]
                       }), column.img && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
                         isLink: true,
                         isDestructive: true,
-                        onClick: () => updateColumn(index, 'img', ''),
+                        onClick: () => updateColumn(index, null, {
+                          img: '',
+                          img_alt: '',
+                          img_title: ''
+                        }),
                         children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Remove Col Image')
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
                         onClick: open,
@@ -503,7 +516,7 @@ function Edit({
                       onChange: content => updateColumn(index, 'img_style', content.target.value)
                     })]
                   })]
-                }), " "]
+                }), ' ']
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                 style: {},
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
@@ -542,7 +555,7 @@ function Edit({
                       onChange: content => updateColumn(index, 'col_inner_style', content.target.value)
                     })]
                   })]
-                }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                }), ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                   style: {
                     width: '100%'
                   },
@@ -768,14 +781,14 @@ function save({
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
     ...blockProps,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
-      className: `position-relative ${attributes.section_class}`,
+      className: `${attributes.section_class}`,
       style: `${attributes.section_style}`,
       id: attributes.section_id,
       children: [attributes.section_image && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
         src: attributes.section_image,
         alt: attributes.section_image_alt,
-        className: `w-100 h-100 position-absolute bg-img ${attributes.section_image_class}`,
-        style: `top:0;left:0;object-fit:cover;pointer-events:none;${attributes.section_image_style}`
+        className: `${attributes.section_image_class}`,
+        style: `${attributes.section_image_style}`
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.RawHTML, {
         children: attributes.section_block
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -788,7 +801,7 @@ function save({
           id: attributes.row_id,
           children: attributes.columns.map((column, index) => {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-              className: `column ${column.col_class}`,
+              className: `${column.col_class}`,
               style: `${column.col_style}`,
               id: `${column.col_id}`,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -798,7 +811,7 @@ function save({
                 "data-aos-delay": column.data_aos_delay,
                 children: [column.img && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
                   src: column.img,
-                  alt: column.alt,
+                  alt: column.img_alt || column.img_title,
                   className: column.img_class,
                   style: column.img_style
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -912,7 +925,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/content-columns","version":"0.1.0","title":"Content Columns","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":false},"attributes":{"section_style":{"type":"string","default":"padding:50px 0px;"},"section_class":{"type":"string","default":""},"section_id":{"type":"string","default":""},"section_image":{"type":"string","default":null},"section_image_alt":{"type":"string","default":null},"section_image_class":{"type":"string"},"section_image_style":{"type":"string"},"section_block":{"type":"string","default":""},"container_style":{"type":"string","default":""},"container_class":{"type":"string","default":"container"},"container_id":{"type":"string","default":""},"row_style":{"type":"string","default":""},"row_class":{"type":"string","default":"row justify-content-center"},"row_id":{"type":"string","default":""},"columns":{"type":"array","items":{"type":"object"},"default":[{"col_class":"","col_style":"","col_id":"","img":"","title":"Column","content":"This is the column content."}]}},"textdomain":"content-columns","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/content-columns","version":"0.1.0","title":"Content Columns","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":true},"attributes":{"section_style":{"type":"string","default":"padding:50px 0px;"},"section_class":{"type":"string","default":"position-relative"},"section_id":{"type":"string","default":""},"section_image":{"type":"string","default":""},"section_image_alt":{"type":"string","default":null},"section_image_class":{"type":"string","default":"w-100 h-100 position-absolute bg-img"},"section_image_style":{"type":"string","default":"top:0;left:0;object-fit:cover;pointer-events:none;"},"section_block":{"type":"string","default":""},"container_style":{"type":"string","default":""},"container_class":{"type":"string","default":"container"},"container_id":{"type":"string","default":""},"row_style":{"type":"string","default":""},"row_class":{"type":"string","default":"row justify-content-center"},"row_id":{"type":"string","default":""},"columns":{"type":"array","items":{"type":"object"},"default":[{"col_class":"column","col_style":"","col_id":"","img":"","img_alt":{"type":"string"},"img_title":{"type":"string"},"title":"Column","content":"This is the column content."}]}},"textdomain":"content-columns","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 
