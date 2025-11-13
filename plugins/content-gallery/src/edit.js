@@ -76,6 +76,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		gallery_columns_style,
 		gallery_images_lightbox,
 		gallery_captions_yes_no,
+		gallery_link_style,
+		gallery_link_class
 	} = attributes;
 
 	const [ value, setValue ] = useState( '' );
@@ -439,6 +441,20 @@ export default function Edit( { attributes, setAttributes } ) {
 						value={ image_style }
 						onChange={ ( nextValue ) =>
 							setAttributes( { image_style: nextValue } )
+						}
+					/>
+					<InputControl
+						label="Link Style"
+						value={ gallery_link_style }
+						onChange={ ( nextValue ) =>
+							setAttributes( { gallery_link_style: nextValue } )
+						}
+					/>
+					<InputControl
+						label="Link Class"
+						value={ gallery_link_class }
+						onChange={ ( nextValue ) =>
+							setAttributes( { gallery_link_class: nextValue } )
 						}
 					/>
 					<InputControl

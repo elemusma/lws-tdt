@@ -87,6 +87,8 @@ export default function save( { attributes } ) {
 										>
 											<a
 												href={ image.url }
+												class={attributes.gallery_link_class}
+												style={attributes.gallery_link_style}
 												data-lightbox={
 													attributes.gallery_images_lightbox
 												}

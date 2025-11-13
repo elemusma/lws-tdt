@@ -49,47 +49,51 @@ export default function save( { attributes } ) {
 					>
 						{ /* <div className="column-wrapper"> */ }
 						{ attributes.columns.map( ( column, index ) => {
-							return (
-								<div
-									className={ `${ column.col_class }` }
-									style={ `${ column.col_style }` }
-									id={ `${ column.col_id }` }
-								>
-									<div
-										className={ column.data_aos_class }
-										style={ column.data_aos_style }
-										data-aos={ column.data_aos }
-										data-aos-delay={ column.data_aos_delay }
-									>
-										{ column.img && (
-											<img
-												src={ column.img }
-												alt={
-													column.img_alt ||
-													column.img_title
-												}
-												className={ column.img_class }
-												style={ column.img_style }
-											/>
-										) }
-										<div
-											className={ ` ${ column.col_inner_class }` }
-											style={ column.col_inner_style }
-										>
-											{ column.title && (
-												<h2 className={ `h3` }>
-													{ column.title }
-												</h2>
-											) }
+	const columnContent = (
+		<div
+			className={ column.data_aos_class }
+			style={ column.data_aos_style }
+			data-aos={ column.data_aos }
+			data-aos-delay={ column.data_aos_delay }
+		>
+			{ column.img && (
+				<img
+					src={ column.img }
+					alt={ column.img_alt || column.img_title }
+					className={ column.img_class }
+					style={ column.img_style }
+				/>
+			) }
+			<div
+				className={ ` ${ column.col_inner_class }` }
+				style={ column.col_inner_style }
+			>
+				{ column.title && (
+					<h2 className={ `h3` }>
+						{ column.title }
+					</h2>
+				) }
+				<RawHTML>
+					{ column.content }
+				</RawHTML>
+			</div>
+		</div>
+	);
 
-											<RawHTML>
-												{ column.content }
-											</RawHTML>
-										</div>
-									</div>
-								</div>
-							);
-						} ) }
+	if ( column.col_link ) {
+		return (
+			<a href={ column.col_link } key={ index } className={column.col_class} style={column.col_style}>
+				{ columnContent }
+			</a>
+		);
+	}
+
+	return (
+		<div key={ index } className={column.col_class} style={column.col_style}>
+			{ columnContent }
+		</div>
+	);
+} ) }
 						{ /* </div> */ }
 					</div>
 				</div>

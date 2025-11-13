@@ -65,9 +65,10 @@ export default function Edit( { attributes, setAttributes } ) {
 	const [ value, setValue ] = useState( '' );
 
 	const utilityFunction = () => ( {
-		col_class: 'column col-lg-4 col-md-6 col-12 text-center',
+		col_class: 'col-lg-4 col-md-6 col-12 text-center',
 		col_style: '',
 		col_id: '',
+		col_link: '',  // ADD THIS
 		data_aos: 'fade-up',
 		data_aos_delay: '',
 		data_aos_class: '',
@@ -312,7 +313,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					{ columns.map( ( column, index ) => {
 						return (
 							<div
-								className={ `column ${ column.col_class }` }
+								className={ `${ column.col_class }` }
 								style={ {
 									padding: '25px',
 									borderBottom: '1px solid',
@@ -368,6 +369,23 @@ export default function Edit( { attributes, setAttributes } ) {
 											}
 										/>
 									</div>
+								</div>
+								<div>
+									<p style={ { marginBottom: '0px' } }>
+											Column Link
+										</p>
+										<input
+		type="url"
+		value={ column.col_link }
+		onChange={ ( content ) =>
+			updateColumn(
+				index,
+				'col_link',
+				content.target.value
+			)
+		}
+		placeholder="https://example.com"
+	/>
 								</div>
 
 								<div style={ { display: 'flex' } }>

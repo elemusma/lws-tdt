@@ -80,9 +80,11 @@ function Edit({
   } = attributes;
   const [value, setValue] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('');
   const utilityFunction = () => ({
-    col_class: 'column col-lg-4 col-md-6 col-12 text-center',
+    col_class: 'col-lg-4 col-md-6 col-12 text-center',
     col_style: '',
     col_id: '',
+    col_link: '',
+    // ADD THIS
     data_aos: 'fade-up',
     data_aos_delay: '',
     data_aos_class: '',
@@ -298,7 +300,7 @@ function Edit({
         className: "column-wrapper",
         children: columns.map((column, index) => {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-            className: `column ${column.col_class}`,
+            className: `${column.col_class}`,
             style: {
               padding: '25px',
               borderBottom: '1px solid',
@@ -347,6 +349,18 @@ function Edit({
                   value: column.col_id,
                   onChange: content => updateColumn(index, 'col_id', content.target.value)
                 })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+                style: {
+                  marginBottom: '0px'
+                },
+                children: "Column Link"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                type: "url",
+                value: column.col_link,
+                onChange: content => updateColumn(index, 'col_link', content.target.value),
+                placeholder: "https://example.com"
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               style: {
@@ -800,32 +814,40 @@ function save({
           style: attributes.row_style,
           id: attributes.row_id,
           children: attributes.columns.map((column, index) => {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-              className: `${column.col_class}`,
-              style: `${column.col_style}`,
-              id: `${column.col_id}`,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                className: column.data_aos_class,
-                style: column.data_aos_style,
-                "data-aos": column.data_aos,
-                "data-aos-delay": column.data_aos_delay,
-                children: [column.img && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-                  src: column.img,
-                  alt: column.img_alt || column.img_title,
-                  className: column.img_class,
-                  style: column.img_style
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-                  className: ` ${column.col_inner_class}`,
-                  style: column.col_inner_style,
-                  children: [column.title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
-                    className: `h3`,
-                    children: column.title
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.RawHTML, {
-                    children: column.content
-                  })]
+            const columnContent = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: column.data_aos_class,
+              style: column.data_aos_style,
+              "data-aos": column.data_aos,
+              "data-aos-delay": column.data_aos_delay,
+              children: [column.img && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+                src: column.img,
+                alt: column.img_alt || column.img_title,
+                className: column.img_class,
+                style: column.img_style
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+                className: ` ${column.col_inner_class}`,
+                style: column.col_inner_style,
+                children: [column.title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+                  className: `h3`,
+                  children: column.title
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.RawHTML, {
+                  children: column.content
                 })]
-              })
+              })]
             });
+            if (column.col_link) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+                href: column.col_link,
+                className: column.col_class,
+                style: column.col_style,
+                children: columnContent
+              }, index);
+            }
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+              className: column.col_class,
+              style: column.col_style,
+              children: columnContent
+            }, index);
           })
         })
       })]
@@ -925,7 +947,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/content-columns","version":"0.1.0","title":"Content Columns","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":true},"attributes":{"section_style":{"type":"string","default":"padding:50px 0px;"},"section_class":{"type":"string","default":"position-relative"},"section_id":{"type":"string","default":""},"section_image":{"type":"string","default":""},"section_image_alt":{"type":"string","default":null},"section_image_class":{"type":"string","default":"w-100 h-100 position-absolute bg-img"},"section_image_style":{"type":"string","default":"top:0;left:0;object-fit:cover;pointer-events:none;"},"section_block":{"type":"string","default":""},"container_style":{"type":"string","default":""},"container_class":{"type":"string","default":"container"},"container_id":{"type":"string","default":""},"row_style":{"type":"string","default":""},"row_class":{"type":"string","default":"row justify-content-center"},"row_id":{"type":"string","default":""},"columns":{"type":"array","items":{"type":"object"},"default":[{"col_class":"column","col_style":"","col_id":"","img":"","img_alt":{"type":"string"},"img_title":{"type":"string"},"title":"Column","content":"This is the column content."}]}},"textdomain":"content-columns","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/content-columns","version":"0.1.0","title":"Content Columns","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"supports":{"html":true},"attributes":{"section_style":{"type":"string","default":"padding:50px 0px;"},"section_class":{"type":"string","default":"position-relative"},"section_id":{"type":"string","default":""},"section_image":{"type":"string","default":""},"section_image_alt":{"type":"string","default":null},"section_image_class":{"type":"string","default":"w-100 h-100 position-absolute bg-img"},"section_image_style":{"type":"string","default":"top:0;left:0;object-fit:cover;pointer-events:none;"},"section_block":{"type":"string","default":""},"container_style":{"type":"string","default":""},"container_class":{"type":"string","default":"container"},"container_id":{"type":"string","default":""},"row_style":{"type":"string","default":""},"row_class":{"type":"string","default":"row justify-content-center"},"row_id":{"type":"string","default":""},"columns":{"type":"array","items":{"type":"object"},"default":[{"col_class":"column","col_style":"","col_id":"","col_link":"","img":"","img_alt":{"type":"string"},"img_title":{"type":"string"},"title":"Column","content":"This is the column content."}]}},"textdomain":"content-columns","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 

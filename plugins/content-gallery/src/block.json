@@ -135,6 +135,14 @@
 		"gallery_images_lightbox": {
 			"type": "string",
 			"default": "gallery-lightbox"
+		},
+		"gallery_link_style": {
+			"type": "string",
+			"default": "overflow:hidden;"
+		},
+		"gallery_link_class": {
+			"type": "string",
+			"default": "d-block"
 		}
 	},
 	"textdomain": "content-gallery",

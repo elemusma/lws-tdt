@@ -78,6 +78,7 @@
           "col_class": "column",
           "col_style": "",
           "col_id": "",
+          "col_link": "",
           "img": "",
           "img_alt": {
             "type": "string"

@@ -40,9 +40,13 @@
   width: 100%;
   height: auto;
 }
+.hover-col img {
+  transition:all .25s ease-in-out;
+}
 
 /* Zoom image on hover */
-.services-col:hover img {
+.services-col:hover img,
+.hover-col:hover img {
   transform: scale(1.05);
 }
 
